@@ -1358,6 +1358,58 @@
         render();
 
     </script>
+<script type="module">
+  import { db } from "./firebase-config.js";
 
+  import {
+    collection,
+    getDocs
+  } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+  async function cargarPeliculasFirebase() {
+    try {
+      const consulta = await getDocs(collection(db, "peliculas"));
+
+      console.log(
+        "🎬 Películas encontradas en Firebase:",
+        consulta.size
+      );
+
+      const peliculasFirebase = [];
+
+consulta.forEach((documento) => {
+  peliculasFirebase.push({
+    id: documento.id,
+    ...documento.data()
+  });
+});
+
+console.log("Películas recibidas:", peliculasFirebase);
+// Quitar del catálogo las películas locales del administrador
+items.splice(items.length - catalogoAdmin.length, catalogoAdmin.length);
+
+// Incorporar las películas recibidas desde Firebase
+peliculasFirebase.forEach((pelicula) => {
+  items.push({
+    t: pelicula.titulo,
+    type: pelicula.tipo,
+    genre: pelicula.genero,
+    year: pelicula.anio,
+    icon: "🎬",
+    color: "#1687ff",
+    desc: pelicula.descripcion,
+    portada: pelicula.portada || ""
+  });
+});
+
+// Actualizar las tarjetas
+render();
+    } catch (error) {
+      console.error("Error al leer Firebase:", error);
+    }
+  }
+
+  cargarPeliculasFirebase();
+</script>
 </body>
 </html>
