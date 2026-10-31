@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administración | Digital L&S</title>
+
+<style>
+:root {
+  --azul: #1687ff;
+  --celeste: #54dfff;
+  --fondo: #070b13;
+  --panel: #111b2a;
+  --texto: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #111827;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid var(--azul);
+}
+
+header img {
+  width: 100px;
+  height: 75px;
+  object-fit: contain;
+}
+
+header h1 {
+  margin: 10px 0;
+  color: var(--celeste);
+}
+
+.contenedor {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.tarjeta {
+  background: var(--panel);
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  border: 1px solid #263c59;
+}
+
+h2 {
+  color: var(--celeste);
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  background: #07111f;
+  color: white;
+  border: 1px solid #345477;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+button, .boton {
+  background: var(--azul);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin-top: 18px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover, .boton:hover {
+  background: #0069d9;
+}
+
+.boton {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 15px;
+}
+
+.pelicula {
+  background: #19283c;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.pelicula img {
+  width: 100%;
+  height: 230px;
+  object-fit: contain;
+  background: #080d16;
+  border-radius: 8px;
+}
+
+.pelicula h3 {
+  margin-bottom: 5px;
+}
+
+.pelicula p {
+  color: #bdc9d8;
+  font-size: 14px;
+}
+
+.eliminar {
+  background: #b42336;
+}
+
+.eliminar:hover {
+  background: #8c1929;
+}
+
+.acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.acciones button {
+  flex: 1;
+}
+
+.aviso {
+  color: #aebdd0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo.jpg" alt="Digital L&S">
+  <h1>DIGITAL L&S</h1>
+  <p>Panel de administración</p>
+</header>
+
+<main class="contenedor">
+<!-- =====================================
+     ACCESO DEL ADMINISTRADOR
+====================================== -->
+
+<section class="tarjeta" id="panelLogin">
+
+  <h2>🔐 Acceso de administrador</h2>
+
+  <p>
+    Inicia sesión para administrar
+    el catálogo de Digital L&S.
+  </p>
+
+  <form id="formLogin">
+
+    <label for="correoAdmin">Correo electrónico</label>
+
+    <input
+      type="email"
+      id="correoAdmin"
+      placeholder="Correo del administrador"
+      autocomplete="username"
+      required
+    >
+
+    <label for="claveAdmin">Contraseña</label>
+
+    <input
+      type="password"
+      id="claveAdmin"
+      placeholder="Contraseña"
+      autocomplete="current-password"
+      required
+    >
+
+    <button type="submit" id="botonLogin">
+      🔓 Iniciar sesión
+    </button>
+
+  </form>
+
+  <p id="mensajeLogin"></p>
+
+</section>
+  <a href="index.html" class="boton">
+    ← Ver catálogo
+  </a>
+
+  <section class="tarjeta">
+    <h2>🎬 Agregar película o serie</h2>
+
+    <form id="formulario">
+
+      <input type="hidden" id="editarId">
+
+      <label for="titulo">Título</label>
+
+<input id="titulo" required
+  placeholder="Ejemplo: Mi película">
+
+<button type="button" id="buscarPelicula" class="boton">
+  🔎 Buscar información automáticamente
+</button>
+
+<div id="resultadosBusqueda"></div>
+
+      <label for="tipo">Tipo de contenido</label>
+      <select id="tipo">
+        <option value="Película">Película</option>
+        <option value="Serie">Serie</option>
+      </select>
+
+      <label for="anio">Año</label>
+      <input id="anio" type="number"
+        min="1900" max="2100" required>
+
+      <label for="genero">Género</label>
+      <select id="genero">
+        <option>Acción</option>
+        <option>Aventura</option>
+        <option>Comedia</option>
+        <option>Drama</option>
+        <option>Romance</option>
+        <option>Terror</option>
+        <option>Suspenso</option>
+        <option>Familiar</option>
+        <option>Animación</option>
+        <option>Ciencia ficción</option>
+        <option>Documental</option>
+      </select>
+
+      <label for="portada">Enlace de portada</label>
+      <input id="portada" type="url"
+        placeholder="https://ejemplo.com/portada.jpg">
+<label for="archivoPortada">
+  O seleccionar una imagen desde mi computadora
+</label>
+
+<input
+  type="file"
+  id="archivoPortada"
+  accept="image/jpeg,image/png,image/webp"
+>
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion"
+        placeholder="Escribe una breve sinopsis"></textarea>
+
+      <button type="submit" id="guardar">
+        💾 Guardar contenido
+      </button>
+
+      <button type="button"
+        onclick="limpiarFormulario()">
+        Limpiar formulario
+      </button>
+
+    </form>
+  </section>
+
+  <section class="tarjeta">
+    <h2>📚 Mi catálogo</h2>
+
+    <input
+      id="buscar"
+      placeholder="🔎 Buscar contenido guardado..."
+      oninput="mostrarCatalogo()"
+    >
+
+    <p id="contador"></p>
+
+    <div id="lista" class="lista"></div>
+  </section>
+
+  <p class="aviso">
+    Esta es una versión local de pruebas.
+    Los datos se guardan en este navegador.
+    Todavía no se sincronizan con otros dispositivos
+    ni se publican automáticamente en el catálogo principal.
+  </p>
+
+</main>
+
+<script>
+const CLAVE = "digital_ls_catalogo_admin_v1";
+// ========================================
+// DIGITAL L&S — SINCRONIZACIÓN CON FIRESTORE
+// ========================================
+// Pendiente: conectar el guardado en la nube.
+// Conservamos localStorage hasta completar
+// y comprobar la integración con Firebase.
+let catalogo = [];
+let firebaseCatalogo = null;
+try {
+  catalogo = JSON.parse(
+    localStorage.getItem(CLAVE) || "[]"
+  );
+
+  if (!Array.isArray(catalogo)) {
+    catalogo = [];
+  }
+} catch (error) {
+  catalogo = [];
+}
+
+const formulario = document.getElementById("formulario");
+
+async function guardarDatos() {
+  try {
+    // Guardar primero cada película en Firebase
+    for (const pelicula of catalogo) {
+      await window.guardarPeliculaFirebase(pelicula);
+    }
+
+    // Conservar una copia local del catálogo
+    localStorage.setItem(
+      CLAVE,
+      JSON.stringify(catalogo)
+    );
+
+    return true;
+
+  } catch (error) {
+    console.error("Error al guardar en Firebase:", error);
+
+    alert(
+      "No se pudieron guardar los cambios en Firebase. " +
+      "Revisa tu conexión y los permisos."
+    );
+
+    return false;
+  }
+}
+function leerImagen(archivo) {
+  return new Promise((resolve, reject) => {
+    const lector = new FileReader();
+
+    lector.onload = () => resolve(lector.result);
+    lector.onerror = () => reject(
+      new Error("No se pudo leer la imagen")
+    );
+
+    lector.readAsDataURL(archivo);
+  });
+}
+formulario.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const editarId = document.getElementById("editarId").value;
+const archivoPortada = document.getElementById("archivoPortada").files[0];
+
+let imagenSeleccionada = "";
+
+if (archivoPortada) {
+  if (!archivoPortada.type.startsWith("image/")) {
+    alert("Selecciona un archivo de imagen válido.");
+    return;
+  }
+
+  if (archivoPortada.size > 300 * 1024) {
+    alert("La imagen debe pesar menos de 300 KB.");
+    return;
+  }
+
+  try {
+    imagenSeleccionada = await leerImagen(archivoPortada);
+  } catch (error) {
+    alert("No se pudo leer la imagen.");
+    return;
+  }
+}
+  const datos = {
+    titulo: document.getElementById("titulo").value.trim(),
+    tipo: document.getElementById("tipo").value,
+    anio: Number(document.getElementById("anio").value),
+    genero: document.getElementById("genero").value,
+    portada: imagenSeleccionada || document.getElementById("portada").value.trim(),
+    descripcion: document.getElementById("descripcion").value.trim()
+  };
+if (
+  datos.portada &&
+  (
+    datos.portada.includes("127.0.0.1") ||
+    datos.portada.includes("localhost") ||
+    datos.portada.startsWith("file:")
+  )
+) {
+  alert(
+    "La portada utiliza una dirección local. " +
+    "Debes colocar un enlace público de internet."
+  );
+  return;
+}
+  if (!datos.titulo || !datos.anio) {
+    alert("Completa el título y el año.");
+    return;
+  }
+
+  const copiaAnterior = [...catalogo];
+
+  if (editarId) {
+    const indice = catalogo.findIndex(
+      item => item.id === editarId
+    );
+
+    if (indice !== -1) {
+      catalogo[indice] = {
+        ...datos,
+        id: editarId
+      };
+    }
+  } else {
+    catalogo.push({
+      ...datos,
+      id: crypto.randomUUID
+        ? crypto.randomUUID()
+        : String(Date.now()) + Math.random()
+    });
+  }
+
+  if (!(await guardarDatos())) {
+    catalogo = copiaAnterior;
+    return;
+  }
+
+  limpiarFormulario();
+  mostrarCatalogo();
+
+  alert("Contenido guardado correctamente.");
+});
+
+function mostrarCatalogo() {
+  const lista = document.getElementById("lista");
+  const busqueda = document.getElementById("buscar")
+    .value.toLowerCase();
+
+  lista.innerHTML = "";
+
+  const resultados = catalogo.filter(item =>
+    item.titulo.toLowerCase().includes(busqueda)
+  );
+
+  document.getElementById("contador").textContent =
+    resultados.length + " títulos encontrados";
+
+  if (resultados.length === 0) {
+    lista.textContent = "Todavía no hay títulos para mostrar.";
+    return;
+  }
+
+  resultados.forEach(item => {
+    const tarjeta = document.createElement("article");
+    tarjeta.className = "pelicula";
+
+    if (item.portada) {
+      const imagen = document.createElement("img");
+      imagen.src = item.portada;
+      imagen.alt = item.titulo;
+      imagen.loading = "lazy";
+      tarjeta.appendChild(imagen);
+    }
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = item.titulo;
+
+    const detalles = document.createElement("p");
+    detalles.textContent =
+      item.tipo + " · " + item.anio + " · " + item.genero;
+
+    const descripcion = document.createElement("p");
+    descripcion.textContent = item.descripcion;
+
+    const acciones = document.createElement("div");
+    acciones.className = "acciones";
+
+    const editar = document.createElement("button");
+    editar.textContent = "✏️ Editar";
+    editar.onclick = () => editarContenido(item.id);
+
+    const eliminar = document.createElement("button");
+    eliminar.textContent = "🗑️ Eliminar";
+    eliminar.className = "eliminar";
+    eliminar.onclick = () => eliminarContenido(item.id);
+
+    acciones.append(editar, eliminar);
+    tarjeta.append(titulo, detalles, descripcion, acciones);
+    lista.appendChild(tarjeta);
+  });
+}
+
+function editarContenido(id) {
+  const item = catalogo.find(elemento => elemento.id === id);
+
+  if (!item) return;
+
+  document.getElementById("editarId").value = item.id;
+  document.getElementById("titulo").value = item.titulo;
+  document.getElementById("tipo").value = item.tipo;
+  document.getElementById("anio").value = item.anio;
+  document.getElementById("genero").value = item.genero;
+  document.getElementById("portada").value = item.portada;
+  document.getElementById("descripcion").value = item.descripcion;
+
+  document.getElementById("guardar").textContent =
+    "💾 Guardar cambios";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+async function eliminarContenido(id) {
+  if (!confirm("¿Quieres eliminar este título?")) {
+    return;
+  }
+
+  try {
+    // Primero eliminar de Firebase
+    await window.eliminarPeliculaFirebase(id);
+
+    // Después eliminar del catálogo local
+    catalogo = catalogo.filter(item => String(item.id) !== String(id));
+
+    // Actualizar la copia local
+    localStorage.setItem(CLAVE, JSON.stringify(catalogo));
+
+    // Actualizar la pantalla
+    mostrarCatalogo();
+
+    alert("Película eliminada correctamente.");
+
+  } catch (error) {
+    console.error("Error al eliminar la película:", error);
+    alert("No se pudo eliminar la película de Firebase.");
+  }
+}
+
+function limpiarFormulario() {
+  formulario.reset();
+
+  document.getElementById("editarId").value = "";
+
+  document.getElementById("guardar").textContent =
+    "💾 Guardar contenido";
+}
+
+mostrarCatalogo();
+</script>
+<!-- =====================================
+     DIGITAL L&S — INICIO DE SESIÓN FIREBASE
+====================================== -->
+
+<script type="module">
+
+import { auth, db } from "./firebase-config.js";
+
+import {
+  collection,
+  getDocs,
+  addDoc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+// Compartir las funciones de Firestore
+// con el administrador existente.
+
+window.firebaseCatalogo = {
+  db,
+  collection,
+  getDocs,
+  addDoc,
+    setDoc,
+  updateDoc,
+  deleteDoc,
+  doc
+};
+// ========================================
+// DIGITAL L&S — GUARDAR EN FIRESTORE
+// ========================================
+
+window.guardarPeliculaFirebase = async function(pelicula) {
+
+  const { db, doc, setDoc } = window.firebaseCatalogo;
+
+  if (!pelicula.id) {
+    throw new Error("La película no tiene identificador.");
+  }
+
+  if (pelicula.portada?.startsWith("data:")) {
+    throw new Error(
+      "Para Firebase, la portada debe ser un enlace público."
+    );
+  }
+
+  const referencia = doc(db, "peliculas", String(pelicula.id));
+
+  await setDoc(referencia, pelicula);
+
+  console.log("✅ Película guardada en Firestore:", pelicula.titulo);
+
+  return pelicula.id;
+};
+// Eliminar una película de Firebase
+window.eliminarPeliculaFirebase = async function(id) {
+  const { db, doc, deleteDoc } = window.firebaseCatalogo;
+
+  if (!id) {
+    throw new Error("La película no tiene identificador.");
+  }
+
+  const referencia = doc(db, "peliculas", String(id));
+
+  await deleteDoc(referencia);
+
+  console.log("✅ Película eliminada de Firebase:", id);
+};
+// ========================================
+// DIGITAL L&S — PRUEBA DE FIRESTORE
+// ========================================
+
+async function probarConexionFirestore() {
+  try {
+    const referencia = collection(db, "peliculas");
+    const resultado = await getDocs(referencia);
+
+    console.log("✅ FIRESTORE CONECTADO CORRECTAMENTE");
+    console.log("Películas encontradas:", resultado.size);
+
+  } catch (error) {
+    console.error("❌ ERROR AL CONECTAR FIRESTORE:", error);
+  }
+}
+
+probarConexionFirestore();
+// Elementos del formulario
+const panelLogin = document.getElementById("panelLogin");
+const formLogin = document.getElementById("formLogin");
+const mensajeLogin = document.getElementById("mensajeLogin");
+
+// Ocultar las funciones administrativas hasta verificar el acceso
+const seccionesAdmin = document.querySelectorAll("main.contenedor > section:not(#panelLogin)");
+
+seccionesAdmin.forEach(seccion => {
+  seccion.style.display = "none";
+});
+
+// Iniciar sesión
+formLogin.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const correo = document.getElementById("correoAdmin").value.trim();
+  const clave = document.getElementById("claveAdmin").value;
+
+  mensajeLogin.textContent = "Verificando acceso...";
+
+  try {
+    await signInWithEmailAndPassword(auth, correo, clave);
+
+    document.getElementById("claveAdmin").value = "";
+
+  } catch (error) {
+    console.error("Error de autenticación:", error.code);
+
+    mensajeLogin.textContent =
+      "No se pudo iniciar sesión. Revisa tu correo y contraseña.";
+  }
+});
+
+// Comprobar sesión
+onAuthStateChanged(auth, async (usuario) => {
+
+  if (!usuario) {
+    panelLogin.style.display = "block";
+
+    seccionesAdmin.forEach(seccion => {
+      seccion.style.display = "none";
+    });
+
+    return;
+  }
+
+  // Comprobar si es la cuenta administradora autorizada
+const UID_ADMIN = "9EXr47QXq2SEBTnXImSjcAKzkZq1";
+
+if (usuario.uid === UID_ADMIN) {
+
+  // Ocultar formulario de acceso
+  panelLogin.style.display = "none";
+
+  // Mostrar las secciones administrativas
+  seccionesAdmin.forEach(seccion => {
+    seccion.style.display = "block";
+  });
+
+} else {
+
+  // Cuenta sin autorización
+  panelLogin.style.display = "block";
+
+  mensajeLogin.textContent =
+    "Esta cuenta no tiene permisos de administrador.";
+
+  await signOut(auth);
+}
+
+});
+
+</script>
+</body>
+</html>
