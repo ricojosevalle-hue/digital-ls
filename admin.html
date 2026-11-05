@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -170,6 +171,13 @@ button:hover, .boton:hover {
   line-height: 1.5;
 }
 
+.estado-portada {
+  color: #54dfff;
+  font-size: 13px;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
 @media (max-width: 600px) {
   .acciones-portada {
     flex-direction: column;
@@ -302,7 +310,7 @@ button:hover, .boton:hover {
       <input
         id="portada"
         type="url"
-        placeholder="https://ejemplo.com/portada.jpg"
+        placeholder="Pega aquí el enlace copiado de GitHub"
       >
 
       <a
@@ -315,6 +323,11 @@ button:hover, .boton:hover {
       </a>
 
     </div>
+
+    <p id="mensajePortada" class="estado-portada">
+      Puedes pegar directamente el enlace copiado de GitHub.
+      El administrador lo convertirá automáticamente.
+    </p>
 
     <label for="descripcion">Descripción</label>
 
@@ -381,6 +394,111 @@ try {
 
 const formulario = document.getElementById("formulario");
 
+/* CONVERTIR AUTOMÁTICAMENTE LOS ENLACES DE GITHUB */
+
+function normalizarEnlaceGitHub(enlace) {
+
+  enlace = enlace.trim();
+
+  if (!enlace) return "";
+
+  try {
+
+    const url = new URL(enlace);
+
+    if (url.hostname === "github.com") {
+
+      const partes = url.pathname.split("/").filter(Boolean);
+
+      if (
+        partes.length >= 5 &&
+        partes[2] === "blob"
+      ) {
+
+        const propietario = partes[0];
+        const repositorio = partes[1];
+        const ramaYRuta = partes.slice(3).join("/");
+
+        return (
+          "https://raw.githubusercontent.com/" +
+          propietario + "/" +
+          repositorio + "/" +
+          ramaYRuta
+        );
+
+      }
+
+      if (
+        partes.length >= 5 &&
+        partes[2] === "raw"
+      ) {
+
+        const propietario = partes[0];
+        const repositorio = partes[1];
+        const ramaYRuta = partes.slice(3).join("/");
+
+        return (
+          "https://raw.githubusercontent.com/" +
+          propietario + "/" +
+          repositorio + "/" +
+          ramaYRuta
+        );
+
+      }
+    }
+
+    return enlace;
+
+  } catch (error) {
+
+    return enlace;
+
+  }
+}
+
+function corregirCampoPortada() {
+
+  const campo = document.getElementById("portada");
+  const mensaje = document.getElementById("mensajePortada");
+
+  const enlaceOriginal = campo.value.trim();
+
+  if (!enlaceOriginal) {
+    mensaje.textContent =
+      "Puedes pegar directamente el enlace copiado de GitHub.";
+    return;
+  }
+
+  const enlaceCorregido =
+    normalizarEnlaceGitHub(enlaceOriginal);
+
+  if (enlaceCorregido !== enlaceOriginal) {
+
+    campo.value = enlaceCorregido;
+
+    mensaje.textContent =
+      "✅ Enlace de GitHub convertido automáticamente. Ya puedes guardar.";
+
+  } else {
+
+    mensaje.textContent =
+      "Enlace listo. Si es una dirección pública de imagen, puedes guardar.";
+
+  }
+}
+
+const campoPortada = document.getElementById("portada");
+
+campoPortada.addEventListener("paste", function() {
+
+  setTimeout(corregirCampoPortada, 0);
+
+});
+
+campoPortada.addEventListener("blur", corregirCampoPortada);
+
+campoPortada.addEventListener("change", corregirCampoPortada);
+
 async function guardarDatos() {
   try {
 
@@ -412,6 +530,8 @@ formulario.addEventListener("submit", async function(event) {
 
   event.preventDefault();
 
+  corregirCampoPortada();
+
   const editarId = document.getElementById("editarId").value;
 
   const datos = {
@@ -423,7 +543,9 @@ formulario.addEventListener("submit", async function(event) {
 
     genero: document.getElementById("genero").value,
 
-    portada: document.getElementById("portada").value.trim(),
+    portada: normalizarEnlaceGitHub(
+      document.getElementById("portada").value
+    ),
 
     descripcion: document.getElementById("descripcion").value.trim()
   };
@@ -584,6 +706,9 @@ function editarContenido(id) {
 
   document.getElementById("descripcion").value = item.descripcion;
 
+  document.getElementById("mensajePortada").textContent =
+    "Puedes pegar un nuevo enlace de GitHub; se convertirá automáticamente.";
+
   document.getElementById("guardar").textContent =
     "💾 Guardar cambios";
 
@@ -633,6 +758,9 @@ function limpiarFormulario() {
 
   document.getElementById("guardar").textContent =
     "💾 Guardar contenido";
+
+  document.getElementById("mensajePortada").textContent =
+    "Puedes pegar directamente el enlace copiado de GitHub. El administrador lo convertirá automáticamente.";
 }
 
 mostrarCatalogo();
@@ -834,3 +962,4 @@ onAuthStateChanged(auth, async (usuario) => {
 
 </body>
 </html>
+```
