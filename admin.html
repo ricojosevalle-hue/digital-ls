@@ -101,6 +101,23 @@ button:hover, .boton:hover {
   text-decoration: none;
 }
 
+.acciones-portada {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.acciones-portada input {
+  flex: 1;
+  min-width: 220px;
+}
+
+.acciones-portada .boton {
+  margin-top: 0;
+  white-space: nowrap;
+}
+
 .lista {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -152,6 +169,17 @@ button:hover, .boton:hover {
   font-size: 14px;
   line-height: 1.5;
 }
+
+@media (max-width: 600px) {
+  .acciones-portada {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acciones-portada .boton {
+    text-align: center;
+  }
+}
 </style>
 </head>
 
@@ -164,9 +192,6 @@ button:hover, .boton:hover {
 </header>
 
 <main class="contenedor">
-<!-- =====================================
-     ACCESO DEL ADMINISTRADOR
-====================================== -->
 
 <section class="tarjeta" id="panelLogin">
 
@@ -208,114 +233,139 @@ button:hover, .boton:hover {
   <p id="mensajeLogin"></p>
 
 </section>
-  <a href="index.html" class="boton">
-    ← Ver catálogo
-  </a>
 
-  <section class="tarjeta">
-    <h2>🎬 Agregar película o serie</h2>
+<a href="index.html" class="boton">
+  ← Ver catálogo
+</a>
 
-    <form id="formulario">
+<section class="tarjeta">
 
-      <input type="hidden" id="editarId">
+  <h2>🎬 Agregar película o serie</h2>
 
-      <label for="titulo">Título</label>
+  <form id="formulario">
 
-<input id="titulo" required
-  placeholder="Ejemplo: Mi película">
+    <input type="hidden" id="editarId">
 
-<button type="button" id="buscarPelicula" class="boton">
-  🔎 Buscar información automáticamente
-</button>
-
-<div id="resultadosBusqueda"></div>
-
-      <label for="tipo">Tipo de contenido</label>
-      <select id="tipo">
-        <option value="Película">Película</option>
-        <option value="Serie">Serie</option>
-      </select>
-
-      <label for="anio">Año</label>
-      <input id="anio" type="number"
-        min="1900" max="2100" required>
-
-      <label for="genero">Género</label>
-      <select id="genero">
-        <option>Acción</option>
-        <option>Aventura</option>
-        <option>Comedia</option>
-        <option>Drama</option>
-        <option>Romance</option>
-        <option>Terror</option>
-        <option>Suspenso</option>
-        <option>Familiar</option>
-        <option>Animación</option>
-        <option>Ciencia ficción</option>
-        <option>Documental</option>
-      </select>
-
-      <label for="portada">Enlace de portada</label>
-      <input id="portada" type="url"
-        placeholder="https://ejemplo.com/portada.jpg">
-<label for="archivoPortada">
-  O seleccionar una imagen desde mi computadora
-</label>
-
-<input
-  type="file"
-  id="archivoPortada"
-  accept="image/jpeg,image/png,image/webp"
->
-      <label for="descripcion">Descripción</label>
-      <textarea id="descripcion"
-        placeholder="Escribe una breve sinopsis"></textarea>
-
-      <button type="submit" id="guardar">
-        💾 Guardar contenido
-      </button>
-
-      <button type="button"
-        onclick="limpiarFormulario()">
-        Limpiar formulario
-      </button>
-
-    </form>
-  </section>
-
-  <section class="tarjeta">
-    <h2>📚 Mi catálogo</h2>
+    <label for="titulo">Título</label>
 
     <input
-      id="buscar"
-      placeholder="🔎 Buscar contenido guardado..."
-      oninput="mostrarCatalogo()"
+      id="titulo"
+      required
+      placeholder="Ejemplo: Mi película"
     >
 
-    <p id="contador"></p>
+    <button type="button" id="buscarPelicula" class="boton">
+      🔎 Buscar información automáticamente
+    </button>
 
-    <div id="lista" class="lista"></div>
-  </section>
+    <div id="resultadosBusqueda"></div>
 
-  <p class="aviso">
-    Esta es una versión local de pruebas.
-    Los datos se guardan en este navegador.
-    Todavía no se sincronizan con otros dispositivos
-    ni se publican automáticamente en el catálogo principal.
-  </p>
+    <label for="tipo">Tipo de contenido</label>
+
+    <select id="tipo">
+      <option value="Película">Película</option>
+      <option value="Serie">Serie</option>
+    </select>
+
+    <label for="anio">Año</label>
+
+    <input
+      id="anio"
+      type="number"
+      min="1900"
+      max="2100"
+      required
+    >
+
+    <label for="genero">Género</label>
+
+    <select id="genero">
+      <option>Acción</option>
+      <option>Aventura</option>
+      <option>Comedia</option>
+      <option>Drama</option>
+      <option>Romance</option>
+      <option>Terror</option>
+      <option>Suspenso</option>
+      <option>Familiar</option>
+      <option>Animación</option>
+      <option>Ciencia ficción</option>
+      <option>Documental</option>
+      <option>Cine de arte</option>
+      <option>Adultos (+18)</option>
+    </select>
+
+    <label for="portada">Enlace de portada</label>
+
+    <div class="acciones-portada">
+
+      <input
+        id="portada"
+        type="url"
+        placeholder="https://ejemplo.com/portada.jpg"
+      >
+
+      <a
+        href="https://github.com/ricojosevalle-hue/digital-ls/tree/main/portadas"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="boton"
+      >
+        📁 Abrir carpeta de portadas
+      </a>
+
+    </div>
+
+    <label for="descripcion">Descripción</label>
+
+    <textarea
+      id="descripcion"
+      placeholder="Escribe una breve sinopsis"
+    ></textarea>
+
+    <button type="submit" id="guardar">
+      💾 Guardar contenido
+    </button>
+
+    <button
+      type="button"
+      onclick="limpiarFormulario()"
+    >
+      Limpiar formulario
+    </button>
+
+  </form>
+
+</section>
+
+<section class="tarjeta">
+
+  <h2>📚 Mi catálogo</h2>
+
+  <input
+    id="buscar"
+    placeholder="🔎 Buscar contenido guardado..."
+    oninput="mostrarCatalogo()"
+  >
+
+  <p id="contador"></p>
+
+  <div id="lista" class="lista"></div>
+
+</section>
+
+<p class="aviso">
+  Los cambios se guardan en Firebase y se conserva una copia
+  local del catálogo en este navegador.
+</p>
 
 </main>
 
 <script>
 const CLAVE = "digital_ls_catalogo_admin_v1";
-// ========================================
-// DIGITAL L&S — SINCRONIZACIÓN CON FIRESTORE
-// ========================================
-// Pendiente: conectar el guardado en la nube.
-// Conservamos localStorage hasta completar
-// y comprobar la integración con Firebase.
+
 let catalogo = [];
-let firebaseCatalogo = null;
+
 try {
   catalogo = JSON.parse(
     localStorage.getItem(CLAVE) || "[]"
@@ -324,6 +374,7 @@ try {
   if (!Array.isArray(catalogo)) {
     catalogo = [];
   }
+
 } catch (error) {
   catalogo = [];
 }
@@ -332,12 +383,11 @@ const formulario = document.getElementById("formulario");
 
 async function guardarDatos() {
   try {
-    // Guardar primero cada película en Firebase
+
     for (const pelicula of catalogo) {
       await window.guardarPeliculaFirebase(pelicula);
     }
 
-    // Conservar una copia local del catálogo
     localStorage.setItem(
       CLAVE,
       JSON.stringify(catalogo)
@@ -346,6 +396,7 @@ async function guardarDatos() {
     return true;
 
   } catch (error) {
+
     console.error("Error al guardar en Firebase:", error);
 
     alert(
@@ -356,66 +407,44 @@ async function guardarDatos() {
     return false;
   }
 }
-function leerImagen(archivo) {
-  return new Promise((resolve, reject) => {
-    const lector = new FileReader();
 
-    lector.onload = () => resolve(lector.result);
-    lector.onerror = () => reject(
-      new Error("No se pudo leer la imagen")
-    );
-
-    lector.readAsDataURL(archivo);
-  });
-}
 formulario.addEventListener("submit", async function(event) {
+
   event.preventDefault();
 
   const editarId = document.getElementById("editarId").value;
-const archivoPortada = document.getElementById("archivoPortada").files[0];
 
-let imagenSeleccionada = "";
-
-if (archivoPortada) {
-  if (!archivoPortada.type.startsWith("image/")) {
-    alert("Selecciona un archivo de imagen válido.");
-    return;
-  }
-
-  if (archivoPortada.size > 300 * 1024) {
-    alert("La imagen debe pesar menos de 300 KB.");
-    return;
-  }
-
-  try {
-    imagenSeleccionada = await leerImagen(archivoPortada);
-  } catch (error) {
-    alert("No se pudo leer la imagen.");
-    return;
-  }
-}
   const datos = {
     titulo: document.getElementById("titulo").value.trim(),
+
     tipo: document.getElementById("tipo").value,
+
     anio: Number(document.getElementById("anio").value),
+
     genero: document.getElementById("genero").value,
-    portada: imagenSeleccionada || document.getElementById("portada").value.trim(),
+
+    portada: document.getElementById("portada").value.trim(),
+
     descripcion: document.getElementById("descripcion").value.trim()
   };
-if (
-  datos.portada &&
-  (
-    datos.portada.includes("127.0.0.1") ||
-    datos.portada.includes("localhost") ||
-    datos.portada.startsWith("file:")
-  )
-) {
-  alert(
-    "La portada utiliza una dirección local. " +
-    "Debes colocar un enlace público de internet."
-  );
-  return;
-}
+
+  if (
+    datos.portada &&
+    (
+      datos.portada.includes("127.0.0.1") ||
+      datos.portada.includes("localhost") ||
+      datos.portada.startsWith("file:")
+    )
+  ) {
+
+    alert(
+      "La portada utiliza una dirección local. " +
+      "Debes colocar un enlace público de internet."
+    );
+
+    return;
+  }
+
   if (!datos.titulo || !datos.anio) {
     alert("Completa el título y el año.");
     return;
@@ -424,6 +453,7 @@ if (
   const copiaAnterior = [...catalogo];
 
   if (editarId) {
+
     const indice = catalogo.findIndex(
       item => item.id === editarId
     );
@@ -434,13 +464,16 @@ if (
         id: editarId
       };
     }
+
   } else {
+
     catalogo.push({
       ...datos,
       id: crypto.randomUUID
         ? crypto.randomUUID()
         : String(Date.now()) + Math.random()
     });
+
   }
 
   if (!(await guardarDatos())) {
@@ -452,10 +485,13 @@ if (
   mostrarCatalogo();
 
   alert("Contenido guardado correctamente.");
+
 });
 
 function mostrarCatalogo() {
+
   const lista = document.getElementById("lista");
+
   const busqueda = document.getElementById("buscar")
     .value.toLowerCase();
 
@@ -474,14 +510,18 @@ function mostrarCatalogo() {
   }
 
   resultados.forEach(item => {
+
     const tarjeta = document.createElement("article");
     tarjeta.className = "pelicula";
 
     if (item.portada) {
+
       const imagen = document.createElement("img");
+
       imagen.src = item.portada;
       imagen.alt = item.titulo;
       imagen.loading = "lazy";
+
       tarjeta.appendChild(imagen);
     }
 
@@ -489,6 +529,7 @@ function mostrarCatalogo() {
     titulo.textContent = item.titulo;
 
     const detalles = document.createElement("p");
+
     detalles.textContent =
       item.tipo + " · " + item.anio + " · " + item.genero;
 
@@ -499,31 +540,48 @@ function mostrarCatalogo() {
     acciones.className = "acciones";
 
     const editar = document.createElement("button");
+
     editar.textContent = "✏️ Editar";
     editar.onclick = () => editarContenido(item.id);
 
     const eliminar = document.createElement("button");
+
     eliminar.textContent = "🗑️ Eliminar";
     eliminar.className = "eliminar";
     eliminar.onclick = () => eliminarContenido(item.id);
 
     acciones.append(editar, eliminar);
-    tarjeta.append(titulo, detalles, descripcion, acciones);
+
+    tarjeta.append(
+      titulo,
+      detalles,
+      descripcion,
+      acciones
+    );
+
     lista.appendChild(tarjeta);
+
   });
 }
 
 function editarContenido(id) {
+
   const item = catalogo.find(elemento => elemento.id === id);
 
   if (!item) return;
 
   document.getElementById("editarId").value = item.id;
+
   document.getElementById("titulo").value = item.titulo;
+
   document.getElementById("tipo").value = item.tipo;
+
   document.getElementById("anio").value = item.anio;
+
   document.getElementById("genero").value = item.genero;
+
   document.getElementById("portada").value = item.portada;
+
   document.getElementById("descripcion").value = item.descripcion;
 
   document.getElementById("guardar").textContent =
@@ -536,32 +594,39 @@ function editarContenido(id) {
 }
 
 async function eliminarContenido(id) {
+
   if (!confirm("¿Quieres eliminar este título?")) {
     return;
   }
 
   try {
-    // Primero eliminar de Firebase
+
     await window.eliminarPeliculaFirebase(id);
 
-    // Después eliminar del catálogo local
-    catalogo = catalogo.filter(item => String(item.id) !== String(id));
+    catalogo = catalogo.filter(
+      item => String(item.id) !== String(id)
+    );
 
-    // Actualizar la copia local
-    localStorage.setItem(CLAVE, JSON.stringify(catalogo));
+    localStorage.setItem(
+      CLAVE,
+      JSON.stringify(catalogo)
+    );
 
-    // Actualizar la pantalla
     mostrarCatalogo();
 
     alert("Película eliminada correctamente.");
 
   } catch (error) {
+
     console.error("Error al eliminar la película:", error);
+
     alert("No se pudo eliminar la película de Firebase.");
+
   }
 }
 
 function limpiarFormulario() {
+
   formulario.reset();
 
   document.getElementById("editarId").value = "";
@@ -571,10 +636,8 @@ function limpiarFormulario() {
 }
 
 mostrarCatalogo();
+
 </script>
-<!-- =====================================
-     DIGITAL L&S — INICIO DE SESIÓN FIREBASE
-====================================== -->
 
 <script type="module">
 
@@ -595,22 +658,17 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
-// Compartir las funciones de Firestore
-// con el administrador existente.
 
 window.firebaseCatalogo = {
   db,
   collection,
   getDocs,
   addDoc,
-    setDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
   doc
 };
-// ========================================
-// DIGITAL L&S — GUARDAR EN FIRESTORE
-// ========================================
 
 window.guardarPeliculaFirebase = async function(pelicula) {
 
@@ -626,84 +684,120 @@ window.guardarPeliculaFirebase = async function(pelicula) {
     );
   }
 
-  const referencia = doc(db, "peliculas", String(pelicula.id));
+  const referencia = doc(
+    db,
+    "peliculas",
+    String(pelicula.id)
+  );
 
   await setDoc(referencia, pelicula);
 
-  console.log("✅ Película guardada en Firestore:", pelicula.titulo);
+  console.log(
+    "✅ Película guardada en Firestore:",
+    pelicula.titulo
+  );
 
   return pelicula.id;
 };
-// Eliminar una película de Firebase
+
 window.eliminarPeliculaFirebase = async function(id) {
+
   const { db, doc, deleteDoc } = window.firebaseCatalogo;
 
   if (!id) {
     throw new Error("La película no tiene identificador.");
   }
 
-  const referencia = doc(db, "peliculas", String(id));
+  const referencia = doc(
+    db,
+    "peliculas",
+    String(id)
+  );
 
   await deleteDoc(referencia);
 
   console.log("✅ Película eliminada de Firebase:", id);
 };
-// ========================================
-// DIGITAL L&S — PRUEBA DE FIRESTORE
-// ========================================
 
 async function probarConexionFirestore() {
+
   try {
+
     const referencia = collection(db, "peliculas");
+
     const resultado = await getDocs(referencia);
 
     console.log("✅ FIRESTORE CONECTADO CORRECTAMENTE");
-    console.log("Películas encontradas:", resultado.size);
+
+    console.log(
+      "Películas encontradas:",
+      resultado.size
+    );
 
   } catch (error) {
-    console.error("❌ ERROR AL CONECTAR FIRESTORE:", error);
+
+    console.error(
+      "❌ ERROR AL CONECTAR FIRESTORE:",
+      error
+    );
+
   }
 }
 
 probarConexionFirestore();
-// Elementos del formulario
+
 const panelLogin = document.getElementById("panelLogin");
+
 const formLogin = document.getElementById("formLogin");
+
 const mensajeLogin = document.getElementById("mensajeLogin");
 
-// Ocultar las funciones administrativas hasta verificar el acceso
-const seccionesAdmin = document.querySelectorAll("main.contenedor > section:not(#panelLogin)");
+const seccionesAdmin = document.querySelectorAll(
+  "main.contenedor > section:not(#panelLogin)"
+);
 
 seccionesAdmin.forEach(seccion => {
   seccion.style.display = "none";
 });
 
-// Iniciar sesión
 formLogin.addEventListener("submit", async (event) => {
+
   event.preventDefault();
 
   const correo = document.getElementById("correoAdmin").value.trim();
+
   const clave = document.getElementById("claveAdmin").value;
 
   mensajeLogin.textContent = "Verificando acceso...";
 
   try {
-    await signInWithEmailAndPassword(auth, correo, clave);
+
+    await signInWithEmailAndPassword(
+      auth,
+      correo,
+      clave
+    );
 
     document.getElementById("claveAdmin").value = "";
 
   } catch (error) {
-    console.error("Error de autenticación:", error.code);
+
+    console.error(
+      "Error de autenticación:",
+      error.code
+    );
 
     mensajeLogin.textContent =
       "No se pudo iniciar sesión. Revisa tu correo y contraseña.";
+
   }
+
 });
 
-// Comprobar sesión
 onAuthStateChanged(auth, async (usuario) => {
 
   if (!usuario) {
+
     panelLogin.style.display = "block";
 
     seccionesAdmin.forEach(seccion => {
@@ -713,32 +807,30 @@ onAuthStateChanged(auth, async (usuario) => {
     return;
   }
 
-  // Comprobar si es la cuenta administradora autorizada
-const UID_ADMIN = "9EXr47QXq2SEBTnXImSjcAKzkZq1";
+  const UID_ADMIN = "9EXr47QXq2SEBTnXImSjcAKzkZq1";
 
-if (usuario.uid === UID_ADMIN) {
+  if (usuario.uid === UID_ADMIN) {
 
-  // Ocultar formulario de acceso
-  panelLogin.style.display = "none";
+    panelLogin.style.display = "none";
 
-  // Mostrar las secciones administrativas
-  seccionesAdmin.forEach(seccion => {
-    seccion.style.display = "block";
-  });
+    seccionesAdmin.forEach(seccion => {
+      seccion.style.display = "block";
+    });
 
-} else {
+  } else {
 
-  // Cuenta sin autorización
-  panelLogin.style.display = "block";
+    panelLogin.style.display = "block";
 
-  mensajeLogin.textContent =
-    "Esta cuenta no tiene permisos de administrador.";
+    mensajeLogin.textContent =
+      "Esta cuenta no tiene permisos de administrador.";
 
-  await signOut(auth);
-}
+    await signOut(auth);
+
+  }
 
 });
 
 </script>
+
 </body>
 </html>
