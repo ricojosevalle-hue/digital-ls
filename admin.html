@@ -227,7 +227,6 @@ display:none!important;
 
 </div>
 </main>
-
 <script type="module">
 
 import {auth,db} from "./firebase-config.js";
@@ -247,7 +246,7 @@ const GENEROS=[
 "Ciencia ficción","Comedia","Crimen","Deportes","Documental",
 "Drama","Fantasía","Familiar","Histórico","Infantil","Misterio",
 "Musical","Policial","Romance","Sobrenatural","Suspenso",
-"Thriller","Western","Cine de arte"
+"Thriller","Western","Cine de arte","+18"
 ];
 
 let peliculas=[],sagas=[];
@@ -662,7 +661,6 @@ list.append(card);
 });
 
 }
-
 function editSaga(id){
 
 const s=sagas.find(x=>x.id===id);

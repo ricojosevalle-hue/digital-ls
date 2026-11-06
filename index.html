@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -355,19 +354,22 @@ Películas y series para disfrutar.<br>
 </div>
 </div>
 </div>
-
 <script type="module">
 import {db} from "./firebase-config.js";
 import {collection,getDocs} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
 const WHATSAPP_NUMBER="527294983148";
 
+const GENEROS_OCULTOS=[
+"Biografía","Crimen","Deportes","Fantasía",
+"Histórico","Misterio","Policial","Western"
+];
+
 const GENEROS_BASE=[
-"Acción","Animación","Anime","Aventura","Bélico","Biografía",
-"Ciencia ficción","Comedia","Crimen","Deportes","Documental",
-"Drama","Fantasía","Familiar","Histórico","Infantil","Misterio",
-"Musical","Policial","Romance","Sobrenatural","Suspenso",
-"Thriller","Western","Cine de arte"
+"Acción","Animación","Anime","Aventura","Bélico",
+"Ciencia ficción","Comedia","Documental","Drama",
+"Familiar","Infantil","Musical","Romance",
+"Sobrenatural","Suspenso","Thriller","Cine de arte","+18"
 ];
 
 let peliculas=[];
@@ -656,8 +658,11 @@ const generos=new Set(GENEROS_BASE);
 
 peliculas.forEach(p=>{
 [...p.generos,...p.etiquetas].forEach(g=>{
-if(g&&String(g).length<45){
-generos.add(String(g).trim());
+const nombre=String(g||"").trim();
+if(nombre&&nombre.length<45&&!GENEROS_OCULTOS.some(x=>
+ x.toLocaleLowerCase("es")===nombre.toLocaleLowerCase("es")
+)){
+generos.add(nombre);
 }
 });
 });
@@ -670,7 +675,6 @@ b.textContent=g;
 cont.append(b);
 });
 }
-
 function renderInicio(){
 const movies=peliculas.filter(p=>p.tipo==="pelicula");
 const series=peliculas.filter(p=>p.tipo==="serie");
@@ -710,7 +714,13 @@ cont.replaceChildren();
 const generos=new Set();
 
 peliculas.forEach(p=>{
-p.generos.forEach(g=>generos.add(g));
+p.generos.forEach(g=>{
+if(!GENEROS_OCULTOS.some(x=>
+ x.toLocaleLowerCase("es")===String(g).trim().toLocaleLowerCase("es")
+)){
+generos.add(g);
+}
+});
 });
 
 const orden=[
