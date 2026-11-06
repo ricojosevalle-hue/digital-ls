@@ -1,965 +1,373 @@
-```html
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b12">
 <title>Administración | Digital L&S</title>
-
 <style>
-:root {
-  --azul: #1687ff;
-  --celeste: #54dfff;
-  --fondo: #070b13;
-  --panel: #111b2a;
-  --texto: #ffffff;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--fondo);
-  color: var(--texto);
-  font-family: Arial, sans-serif;
-}
-
-header {
-  background: #111827;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 2px solid var(--azul);
-}
-
-header img {
-  width: 100px;
-  height: 75px;
-  object-fit: contain;
-}
-
-header h1 {
-  margin: 10px 0;
-  color: var(--celeste);
-}
-
-.contenedor {
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px;
-}
-
-.tarjeta {
-  background: var(--panel);
-  padding: 25px;
-  border-radius: 15px;
-  margin-bottom: 25px;
-  border: 1px solid #263c59;
-}
-
-h2 {
-  color: var(--celeste);
-}
-
-label {
-  display: block;
-  margin-top: 15px;
-  margin-bottom: 6px;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 12px;
-  background: #07111f;
-  color: white;
-  border: 1px solid #345477;
-  border-radius: 8px;
-  font-size: 15px;
-}
-
-textarea {
-  min-height: 100px;
-}
-
-button, .boton {
-  background: var(--azul);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 18px;
-  margin-top: 18px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button:hover, .boton:hover {
-  background: #0069d9;
-}
-
-.boton {
-  display: inline-block;
-  text-decoration: none;
-}
-
-.acciones-portada {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.acciones-portada input {
-  flex: 1;
-  min-width: 220px;
-}
-
-.acciones-portada .boton {
-  margin-top: 0;
-  white-space: nowrap;
-}
-
-.lista {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 15px;
-}
-
-.pelicula {
-  background: #19283c;
-  padding: 15px;
-  border-radius: 12px;
-}
-
-.pelicula img {
-  width: 100%;
-  height: 230px;
-  object-fit: contain;
-  background: #080d16;
-  border-radius: 8px;
-}
-
-.pelicula h3 {
-  margin-bottom: 5px;
-}
-
-.pelicula p {
-  color: #bdc9d8;
-  font-size: 14px;
-}
-
-.eliminar {
-  background: #b42336;
-}
-
-.eliminar:hover {
-  background: #8c1929;
-}
-
-.acciones {
-  display: flex;
-  gap: 8px;
-}
-
-.acciones button {
-  flex: 1;
-}
-
-.aviso {
-  color: #aebdd0;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.estado-portada {
-  color: #54dfff;
-  font-size: 13px;
-  margin-top: 8px;
-  line-height: 1.5;
-}
-
-@media (max-width: 600px) {
-  .acciones-portada {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .acciones-portada .boton {
-    text-align: center;
-  }
-}
+:root{--blue:#1687ff;--cyan:#54dfff;--bg:#080b12;--panel:#101725;--text:#f4f7ff;--muted:#9ba9bd;--border:rgba(255,255,255,.1)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+header{text-align:center;padding:22px;background:#0e1522;border-bottom:2px solid var(--blue)}
+header img{width:90px;height:70px;object-fit:contain}header h1{color:var(--cyan);margin:8px}
+.container{max-width:1100px;margin:auto;padding:22px}
+.panel{background:var(--panel);padding:24px;border-radius:14px;border:1px solid var(--border);margin-bottom:24px}
+h2{color:var(--cyan);margin-top:0}
+label{display:block;margin:15px 0 7px}
+input,select,textarea{width:100%;padding:12px;background:#080e19;color:white;border:1px solid #345477;border-radius:8px;font-size:14px}
+textarea{min-height:95px;resize:vertical}
+button,.btn{background:var(--blue);color:white;border:0;border-radius:8px;padding:11px 16px;margin-top:13px;font-weight:bold;cursor:pointer}
+button:hover,.btn:hover{background:#056bd5}
+.btn{display:inline-block;text-decoration:none}
+.secondary{background:#293b54}.danger{background:#b42336}.danger:hover{background:#8c1929}
+.small{font-size:12px;color:var(--muted);line-height:1.6}
+.hidden{display:none!important}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:15px}
+.item{background:#19283c;border:1px solid var(--border);border-radius:12px;padding:14px;min-width:0}
+.item img{width:100%;height:180px;object-fit:contain;background:#080d16;border-radius:8px}
+.item h3{margin:12px 0 6px}.item p{font-size:13px;color:#bdc9d8;line-height:1.5;overflow-wrap:anywhere}
+.actions{display:flex;gap:8px}.actions button{flex:1}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.row>*{flex:1}
+.tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}
+.tab{background:#172338;border:1px solid #30425b}
+.tab.active{background:var(--blue)}
+.genre-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:9px;margin-top:10px}
+.genre-option{display:flex;align-items:center;gap:8px;background:#0b1422;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:13px}
+.genre-option input{width:auto;accent-color:var(--blue)}
+.movie-select{display:grid;gap:8px;max-height:300px;overflow:auto;padding:10px;background:#0b1422;border:1px solid var(--border);border-radius:8px}
+.movie-option{display:flex;align-items:center;gap:10px;padding:8px;border-bottom:1px solid var(--border);font-size:13px}
+.movie-option input{width:auto}
+.movie-option span{flex:1}
+.status{padding:12px;border-radius:8px;background:#0b1422;color:var(--cyan);font-size:13px;margin-top:12px}
+.poster-preview{display:block;max-width:180px;max-height:240px;object-fit:contain;margin-top:10px;border:1px solid var(--border);border-radius:8px;background:#080d16;padding:5px}
+@media(max-width:600px){.container{padding:13px}.panel{padding:17px}.row{display:block}.actions button{font-size:12px;padding:10px 7px}}
 </style>
 </head>
-
 <body>
-
 <header>
-  <img src="logo.jpg" alt="Digital L&S">
-  <h1>DIGITAL L&S</h1>
-  <p>Panel de administración</p>
+<img src="logo.jpg" alt="Digital L&S">
+<h1>DIGITAL L&S</h1>
+<p>Panel de administración</p>
 </header>
 
-<main class="contenedor">
-
-<section class="tarjeta" id="panelLogin">
-
-  <h2>🔐 Acceso de administrador</h2>
-
-  <p>
-    Inicia sesión para administrar
-    el catálogo de Digital L&S.
-  </p>
-
-  <form id="formLogin">
-
-    <label for="correoAdmin">Correo electrónico</label>
-
-    <input
-      type="email"
-      id="correoAdmin"
-      placeholder="Correo del administrador"
-      autocomplete="username"
-      required
-    >
-
-    <label for="claveAdmin">Contraseña</label>
-
-    <input
-      type="password"
-      id="claveAdmin"
-      placeholder="Contraseña"
-      autocomplete="current-password"
-      required
-    >
-
-    <button type="submit" id="botonLogin">
-      🔓 Iniciar sesión
-    </button>
-
-  </form>
-
-  <p id="mensajeLogin"></p>
-
+<main class="container">
+<section class="panel" id="loginPanel">
+<h2>🔐 Acceso de administrador</h2>
+<p class="small">Inicia sesión para administrar el catálogo.</p>
+<form id="loginForm">
+<label>Correo electrónico</label>
+<input id="email" type="email" autocomplete="username" required>
+<label>Contraseña</label>
+<input id="password" type="password" autocomplete="current-password" required>
+<button type="submit">Iniciar sesión</button>
+</form>
+<p id="loginMessage" class="small"></p>
 </section>
 
-<a href="index.html" class="boton">
-  ← Ver catálogo
-</a>
+<div id="adminPanel" class="hidden">
+<div class="row">
+<a href="index.html" class="btn">← Ver página principal</a>
+<button id="logoutButton" class="secondary">Cerrar sesión</button>
+</div>
 
-<section class="tarjeta">
+<div class="tabs">
+<button class="tab active" data-tab="moviesPanel">🎬 Películas y series</button>
+<button class="tab" data-tab="sagasPanel">🎞️ Sagas completas</button>
+</div>
 
-  <h2>🎬 Agregar película o serie</h2>
-
-  <form id="formulario">
-
-    <input type="hidden" id="editarId">
-
-    <label for="titulo">Título</label>
-
-    <input
-      id="titulo"
-      required
-      placeholder="Ejemplo: Mi película"
-    >
-
-    <button type="button" id="buscarPelicula" class="boton">
-      🔎 Buscar información automáticamente
-    </button>
-
-    <div id="resultadosBusqueda"></div>
-
-    <label for="tipo">Tipo de contenido</label>
-
-    <select id="tipo">
-      <option value="Película">Película</option>
-      <option value="Serie">Serie</option>
-    </select>
-
-    <label for="anio">Año</label>
-
-    <input
-      id="anio"
-      type="number"
-      min="1900"
-      max="2100"
-      required
-    >
-
-    <label for="genero">Género</label>
-
-    <select id="genero">
-      <option>Acción</option>
-      <option>Aventura</option>
-      <option>Comedia</option>
-      <option>Drama</option>
-      <option>Romance</option>
-      <option>Terror</option>
-      <option>Suspenso</option>
-      <option>Familiar</option>
-      <option>Animación</option>
-      <option>Ciencia ficción</option>
-      <option>Documental</option>
-      <option>Cine de arte</option>
-      <option>Adultos (+18)</option>
-    </select>
-
-    <label for="portada">Enlace de portada</label>
-
-    <div class="acciones-portada">
-
-      <input
-        id="portada"
-        type="url"
-        placeholder="Pega aquí el enlace copiado de GitHub"
-      >
-
-      <a
-        href="https://github.com/ricojosevalle-hue/digital-ls/tree/main/portadas"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="boton"
-      >
-        📁 Abrir carpeta de portadas
-      </a>
-
-    </div>
-
-    <p id="mensajePortada" class="estado-portada">
-      Puedes pegar directamente el enlace copiado de GitHub.
-      El administrador lo convertirá automáticamente.
-    </p>
-
-    <label for="descripcion">Descripción</label>
-
-    <textarea
-      id="descripcion"
-      placeholder="Escribe una breve sinopsis"
-    ></textarea>
-
-    <button type="submit" id="guardar">
-      💾 Guardar contenido
-    </button>
-
-    <button
-      type="button"
-      onclick="limpiarFormulario()"
-    >
-      Limpiar formulario
-    </button>
-
-  </form>
-
+<section class="panel admin-section" id="moviesPanel">
+<h2>Administrar películas y series</h2>
+<form id="movieForm">
+<input type="hidden" id="movieId">
+<label>Título</label>
+<input id="title" required placeholder="Nombre de la película o serie">
+<label>Tipo de contenido</label>
+<select id="type"><option value="Película">Película</option><option value="Serie">Serie</option></select>
+<label>Año</label>
+<input id="year" type="number" min="1900" max="2100" required>
+<label>Géneros (puedes seleccionar varios)</label>
+<div class="genre-list" id="genreList"></div>
+<p class="small">Selecciona todos los géneros que correspondan. Los filtros de la página principal se generan con estos datos.</p>
+<label>Enlace de portada</label>
+<div class="row">
+<input id="poster" type="url" placeholder="Enlace público de la imagen">
+<a class="btn" href="https://github.com/ricojosevalle-hue/digital-ls/tree/main/portadas" target="_blank" rel="noopener noreferrer">📁 Portadas GitHub</a>
+</div>
+<p class="small" id="posterMessage">Puedes pegar un enlace de GitHub. Se convertirá a enlace directo cuando corresponda.</p>
+<label>Descripción</label>
+<textarea id="description" placeholder="Sinopsis del contenido"></textarea>
+<div class="row">
+<button type="submit" id="saveMovie">💾 Guardar contenido</button>
+<button type="button" class="secondary" id="clearMovie">Limpiar</button>
+</div>
+</form>
+<div id="movieStatus" class="status hidden"></div>
 </section>
 
-<section class="tarjeta">
-
-  <h2>📚 Mi catálogo</h2>
-
-  <input
-    id="buscar"
-    placeholder="🔎 Buscar contenido guardado..."
-    oninput="mostrarCatalogo()"
-  >
-
-  <p id="contador"></p>
-
-  <div id="lista" class="lista"></div>
-
+<section class="panel admin-section hidden" id="sagasPanel">
+<h2>Administrar sagas completas</h2>
+<p class="small">Cada saga tendrá una portada de colección y una lista ordenada de películas. Las películas seleccionadas seguirán apareciendo en el catálogo individual.</p>
+<form id="sagaForm">
+<input type="hidden" id="sagaId">
+<label>Nombre de la saga</label>
+<input id="sagaTitle" required placeholder="Ejemplo: Colección completa">
+<label>Portada de la colección</label>
+<div class="row">
+<input id="sagaPoster" type="url" placeholder="Enlace público de la imagen">
+<a class="btn" href="https://github.com/ricojosevalle-hue/digital-ls/tree/main/portadas" target="_blank" rel="noopener noreferrer">📁 Portadas GitHub</a>
+</div>
+<p class="small" id="sagaPosterMessage">Pega un enlace de GitHub. Se convertirá automáticamente a enlace directo al salir del campo.</p>
+<img id="sagaPosterPreview" class="poster-preview hidden" alt="Vista previa de la portada de la saga">
+<label>Descripción</label>
+<textarea id="sagaDescription" placeholder="Información de la colección"></textarea>
+<label>Selecciona las películas que forman parte de esta saga</label>
+<input id="sagaSearch" placeholder="Buscar película por título..." style="margin-bottom:10px">
+<div class="movie-select" id="sagaMovieList"></div>
+<p class="small">Selecciona las películas en el orden en que deseas presentarlas. Si quieres cambiar el orden, desmarca y vuelve a seleccionar en el orden correcto.</p>
+<div class="row">
+<button type="submit" id="saveSaga">💾 Guardar saga</button>
+<button type="button" class="secondary" id="clearSaga">Limpiar</button>
+</div>
+</form>
+<div id="sagaStatus" class="status hidden"></div>
 </section>
 
-<p class="aviso">
-  Los cambios se guardan en Firebase y se conserva una copia
-  local del catálogo en este navegador.
-</p>
+<section class="panel">
+<h2>📚 Mi catálogo de películas y series</h2>
+<input id="movieSearch" placeholder="Buscar contenido guardado...">
+<p id="movieCount" class="small"></p>
+<div class="grid" id="movieList"></div>
+</section>
 
+<section class="panel">
+<h2>🎞️ Mis sagas completas</h2>
+<input id="sagaAdminSearch" placeholder="Buscar saga...">
+<p id="sagaCount" class="small"></p>
+<div class="grid" id="sagaAdminList"></div>
+</section>
+</div>
 </main>
 
-<script>
-const CLAVE = "digital_ls_catalogo_admin_v1";
-
-let catalogo = [];
-
-try {
-  catalogo = JSON.parse(
-    localStorage.getItem(CLAVE) || "[]"
-  );
-
-  if (!Array.isArray(catalogo)) {
-    catalogo = [];
-  }
-
-} catch (error) {
-  catalogo = [];
-}
-
-const formulario = document.getElementById("formulario");
-
-/* CONVERTIR AUTOMÁTICAMENTE LOS ENLACES DE GITHUB */
-
-function normalizarEnlaceGitHub(enlace) {
-
-  enlace = enlace.trim();
-
-  if (!enlace) return "";
-
-  try {
-
-    const url = new URL(enlace);
-
-    if (url.hostname === "github.com") {
-
-      const partes = url.pathname.split("/").filter(Boolean);
-
-      if (
-        partes.length >= 5 &&
-        partes[2] === "blob"
-      ) {
-
-        const propietario = partes[0];
-        const repositorio = partes[1];
-        const ramaYRuta = partes.slice(3).join("/");
-
-        return (
-          "https://raw.githubusercontent.com/" +
-          propietario + "/" +
-          repositorio + "/" +
-          ramaYRuta
-        );
-
-      }
-
-      if (
-        partes.length >= 5 &&
-        partes[2] === "raw"
-      ) {
-
-        const propietario = partes[0];
-        const repositorio = partes[1];
-        const ramaYRuta = partes.slice(3).join("/");
-
-        return (
-          "https://raw.githubusercontent.com/" +
-          propietario + "/" +
-          repositorio + "/" +
-          ramaYRuta
-        );
-
-      }
-    }
-
-    return enlace;
-
-  } catch (error) {
-
-    return enlace;
-
-  }
-}
-
-function corregirCampoPortada() {
-
-  const campo = document.getElementById("portada");
-  const mensaje = document.getElementById("mensajePortada");
-
-  const enlaceOriginal = campo.value.trim();
-
-  if (!enlaceOriginal) {
-    mensaje.textContent =
-      "Puedes pegar directamente el enlace copiado de GitHub.";
-    return;
-  }
-
-  const enlaceCorregido =
-    normalizarEnlaceGitHub(enlaceOriginal);
-
-  if (enlaceCorregido !== enlaceOriginal) {
-
-    campo.value = enlaceCorregido;
-
-    mensaje.textContent =
-      "✅ Enlace de GitHub convertido automáticamente. Ya puedes guardar.";
-
-  } else {
-
-    mensaje.textContent =
-      "Enlace listo. Si es una dirección pública de imagen, puedes guardar.";
-
-  }
-}
-
-const campoPortada = document.getElementById("portada");
-
-campoPortada.addEventListener("paste", function() {
-
-  setTimeout(corregirCampoPortada, 0);
-
-});
-
-campoPortada.addEventListener("blur", corregirCampoPortada);
-
-campoPortada.addEventListener("change", corregirCampoPortada);
-
-async function guardarDatos() {
-  try {
-
-    for (const pelicula of catalogo) {
-      await window.guardarPeliculaFirebase(pelicula);
-    }
-
-    localStorage.setItem(
-      CLAVE,
-      JSON.stringify(catalogo)
-    );
-
-    return true;
-
-  } catch (error) {
-
-    console.error("Error al guardar en Firebase:", error);
-
-    alert(
-      "No se pudieron guardar los cambios en Firebase. " +
-      "Revisa tu conexión y los permisos."
-    );
-
-    return false;
-  }
-}
-
-formulario.addEventListener("submit", async function(event) {
-
-  event.preventDefault();
-
-  corregirCampoPortada();
-
-  const editarId = document.getElementById("editarId").value;
-
-  const datos = {
-    titulo: document.getElementById("titulo").value.trim(),
-
-    tipo: document.getElementById("tipo").value,
-
-    anio: Number(document.getElementById("anio").value),
-
-    genero: document.getElementById("genero").value,
-
-    portada: normalizarEnlaceGitHub(
-      document.getElementById("portada").value
-    ),
-
-    descripcion: document.getElementById("descripcion").value.trim()
-  };
-
-  if (
-    datos.portada &&
-    (
-      datos.portada.includes("127.0.0.1") ||
-      datos.portada.includes("localhost") ||
-      datos.portada.startsWith("file:")
-    )
-  ) {
-
-    alert(
-      "La portada utiliza una dirección local. " +
-      "Debes colocar un enlace público de internet."
-    );
-
-    return;
-  }
-
-  if (!datos.titulo || !datos.anio) {
-    alert("Completa el título y el año.");
-    return;
-  }
-
-  const copiaAnterior = [...catalogo];
-
-  if (editarId) {
-
-    const indice = catalogo.findIndex(
-      item => item.id === editarId
-    );
-
-    if (indice !== -1) {
-      catalogo[indice] = {
-        ...datos,
-        id: editarId
-      };
-    }
-
-  } else {
-
-    catalogo.push({
-      ...datos,
-      id: crypto.randomUUID
-        ? crypto.randomUUID()
-        : String(Date.now()) + Math.random()
-    });
-
-  }
-
-  if (!(await guardarDatos())) {
-    catalogo = copiaAnterior;
-    return;
-  }
-
-  limpiarFormulario();
-  mostrarCatalogo();
-
-  alert("Contenido guardado correctamente.");
-
-});
-
-function mostrarCatalogo() {
-
-  const lista = document.getElementById("lista");
-
-  const busqueda = document.getElementById("buscar")
-    .value.toLowerCase();
-
-  lista.innerHTML = "";
-
-  const resultados = catalogo.filter(item =>
-    item.titulo.toLowerCase().includes(busqueda)
-  );
-
-  document.getElementById("contador").textContent =
-    resultados.length + " títulos encontrados";
-
-  if (resultados.length === 0) {
-    lista.textContent = "Todavía no hay títulos para mostrar.";
-    return;
-  }
-
-  resultados.forEach(item => {
-
-    const tarjeta = document.createElement("article");
-    tarjeta.className = "pelicula";
-
-    if (item.portada) {
-
-      const imagen = document.createElement("img");
-
-      imagen.src = item.portada;
-      imagen.alt = item.titulo;
-      imagen.loading = "lazy";
-
-      tarjeta.appendChild(imagen);
-    }
-
-    const titulo = document.createElement("h3");
-    titulo.textContent = item.titulo;
-
-    const detalles = document.createElement("p");
-
-    detalles.textContent =
-      item.tipo + " · " + item.anio + " · " + item.genero;
-
-    const descripcion = document.createElement("p");
-    descripcion.textContent = item.descripcion;
-
-    const acciones = document.createElement("div");
-    acciones.className = "acciones";
-
-    const editar = document.createElement("button");
-
-    editar.textContent = "✏️ Editar";
-    editar.onclick = () => editarContenido(item.id);
-
-    const eliminar = document.createElement("button");
-
-    eliminar.textContent = "🗑️ Eliminar";
-    eliminar.className = "eliminar";
-    eliminar.onclick = () => eliminarContenido(item.id);
-
-    acciones.append(editar, eliminar);
-
-    tarjeta.append(
-      titulo,
-      detalles,
-      descripcion,
-      acciones
-    );
-
-    lista.appendChild(tarjeta);
-
-  });
-}
-
-function editarContenido(id) {
-
-  const item = catalogo.find(elemento => elemento.id === id);
-
-  if (!item) return;
-
-  document.getElementById("editarId").value = item.id;
-
-  document.getElementById("titulo").value = item.titulo;
-
-  document.getElementById("tipo").value = item.tipo;
-
-  document.getElementById("anio").value = item.anio;
-
-  document.getElementById("genero").value = item.genero;
-
-  document.getElementById("portada").value = item.portada;
-
-  document.getElementById("descripcion").value = item.descripcion;
-
-  document.getElementById("mensajePortada").textContent =
-    "Puedes pegar un nuevo enlace de GitHub; se convertirá automáticamente.";
-
-  document.getElementById("guardar").textContent =
-    "💾 Guardar cambios";
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}
-
-async function eliminarContenido(id) {
-
-  if (!confirm("¿Quieres eliminar este título?")) {
-    return;
-  }
-
-  try {
-
-    await window.eliminarPeliculaFirebase(id);
-
-    catalogo = catalogo.filter(
-      item => String(item.id) !== String(id)
-    );
-
-    localStorage.setItem(
-      CLAVE,
-      JSON.stringify(catalogo)
-    );
-
-    mostrarCatalogo();
-
-    alert("Película eliminada correctamente.");
-
-  } catch (error) {
-
-    console.error("Error al eliminar la película:", error);
-
-    alert("No se pudo eliminar la película de Firebase.");
-
-  }
-}
-
-function limpiarFormulario() {
-
-  formulario.reset();
-
-  document.getElementById("editarId").value = "";
-
-  document.getElementById("guardar").textContent =
-    "💾 Guardar contenido";
-
-  document.getElementById("mensajePortada").textContent =
-    "Puedes pegar directamente el enlace copiado de GitHub. El administrador lo convertirá automáticamente.";
-}
-
-mostrarCatalogo();
-
-</script>
-
 <script type="module">
-
-import { auth, db } from "./firebase-config.js";
-
+import {auth,db} from "./firebase-config.js";
 import {
-  collection,
-  getDocs,
-  addDoc,
-  setDoc,
-  updateDoc,
-  deleteDoc,
-  doc
+ collection,getDocs,doc,setDoc,deleteDoc
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
-
 import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
+ signInWithEmailAndPassword,onAuthStateChanged,signOut
 } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
 
-window.firebaseCatalogo = {
-  db,
-  collection,
-  getDocs,
-  addDoc,
-  setDoc,
-  updateDoc,
-  deleteDoc,
-  doc
-};
+const UID_ADMIN="9EXr47QXq2SEBTnXImSjcAKzkZq1";
+const GENEROS=["Acción","Animación","Anime","Aventura","Bélico","Biografía","Ciencia ficción","Comedia","Crimen","Deportes","Documental","Drama","Fantasía","Familiar","Histórico","Infantil","Misterio","Musical","Policial","Romance","Sobrenatural","Suspenso","Thriller","Western","Cine de arte"];
+let peliculas=[],sagas=[];
+const $=id=>document.getElementById(id);
+const movieCollection=collection(db,"peliculas");
+const sagaCollection=collection(db,"sagas");
 
-window.guardarPeliculaFirebase = async function(pelicula) {
-
-  const { db, doc, setDoc } = window.firebaseCatalogo;
-
-  if (!pelicula.id) {
-    throw new Error("La película no tiene identificador.");
-  }
-
-  if (pelicula.portada?.startsWith("data:")) {
-    throw new Error(
-      "Para Firebase, la portada debe ser un enlace público."
-    );
-  }
-
-  const referencia = doc(
-    db,
-    "peliculas",
-    String(pelicula.id)
-  );
-
-  await setDoc(referencia, pelicula);
-
-  console.log(
-    "✅ Película guardada en Firestore:",
-    pelicula.titulo
-  );
-
-  return pelicula.id;
-};
-
-window.eliminarPeliculaFirebase = async function(id) {
-
-  const { db, doc, deleteDoc } = window.firebaseCatalogo;
-
-  if (!id) {
-    throw new Error("La película no tiene identificador.");
-  }
-
-  const referencia = doc(
-    db,
-    "peliculas",
-    String(id)
-  );
-
-  await deleteDoc(referencia);
-
-  console.log("✅ Película eliminada de Firebase:", id);
-};
-
-async function probarConexionFirestore() {
-
-  try {
-
-    const referencia = collection(db, "peliculas");
-
-    const resultado = await getDocs(referencia);
-
-    console.log("✅ FIRESTORE CONECTADO CORRECTAMENTE");
-
-    console.log(
-      "Películas encontradas:",
-      resultado.size
-    );
-
-  } catch (error) {
-
-    console.error(
-      "❌ ERROR AL CONECTAR FIRESTORE:",
-      error
-    );
-
-  }
+function status(id,msg){$(id).textContent=msg;$(id).classList.remove("hidden")}
+function clearStatus(id){$(id).classList.add("hidden")}
+function showPosterPreview(inputId,previewId){
+ const value=normalizeGitHub($(inputId).value);
+ const preview=$(previewId);
+ if(!value){preview.removeAttribute("src");preview.classList.add("hidden");return}
+ preview.onload=()=>preview.classList.remove("hidden");
+ preview.onerror=()=>{preview.classList.add("hidden");};
+ preview.src=value;
 }
-
-probarConexionFirestore();
-
-const panelLogin = document.getElementById("panelLogin");
-
-const formLogin = document.getElementById("formLogin");
-
-const mensajeLogin = document.getElementById("mensajeLogin");
-
-const seccionesAdmin = document.querySelectorAll(
-  "main.contenedor > section:not(#panelLogin)"
-);
-
-seccionesAdmin.forEach(seccion => {
-  seccion.style.display = "none";
-});
-
-formLogin.addEventListener("submit", async (event) => {
-
-  event.preventDefault();
-
-  const correo = document.getElementById("correoAdmin").value.trim();
-
-  const clave = document.getElementById("claveAdmin").value;
-
-  mensajeLogin.textContent = "Verificando acceso...";
-
-  try {
-
-    await signInWithEmailAndPassword(
-      auth,
-      correo,
-      clave
-    );
-
-    document.getElementById("claveAdmin").value = "";
-
-  } catch (error) {
-
-    console.error(
-      "Error de autenticación:",
-      error.code
-    );
-
-    mensajeLogin.textContent =
-      "No se pudo iniciar sesión. Revisa tu correo y contraseña.";
-
+function normalizeGitHub(value){
+ if(!value)return "";
+ try{
+  const url=new URL(value.trim());
+  if(url.hostname==="github.com"){
+   const p=url.pathname.split("/").filter(Boolean);
+   if(p.length>=5&&(p[2]==="blob"||p[2]==="raw"))
+    return `https://raw.githubusercontent.com/${p[0]}/${p[1]}/${p.slice(3).join("/")}`;
   }
+ }catch(e){}
+ return value.trim();
+}
+function makeId(){return crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2)}
+function escapeText(value){return String(value??"")}
+function renderGenres(selected=[]){
+ const list=$("genreList");list.replaceChildren();
+ GENEROS.forEach(g=>{
+  const label=document.createElement("label");label.className="genre-option";
+  const input=document.createElement("input");input.type="checkbox";input.value=g;input.checked=selected.some(x=>x.toLowerCase()===g.toLowerCase());
+  const span=document.createElement("span");span.textContent=g;
+  label.append(input,span);list.append(label);
+ });
+}
+function selectedGenres(){return [...$("genreList").querySelectorAll("input:checked")].map(x=>x.value)}
+function normalizeMovie(data,id){
+ const raw=data.generos??data.genero??[];
+ const generos=(Array.isArray(raw)?raw:String(raw).split(",")).map(x=>String(x).trim()).filter(Boolean);
+ return {id,titulo:String(data.titulo||"Sin título"),tipo:String(data.tipo||"Película"),anio:Number(data.anio)||"",generos,genero:generos[0]||"",portada:String(data.portada||""),descripcion:String(data.descripcion||""),etiquetas:Array.isArray(data.etiquetas)?data.etiquetas:[]};
+}
+function renderMovieList(){
+ const q=$("movieSearch").value.trim().toLowerCase(),list=$("movieList");list.replaceChildren();
+ const results=peliculas.filter(p=>p.titulo.toLowerCase().includes(q));
+ $("movieCount").textContent=`${results.length} títulos`;
+ if(!results.length){list.textContent="No hay resultados.";return}
+ results.forEach(p=>{
+  const card=document.createElement("article");card.className="item";
+  if(p.portada){const img=document.createElement("img");img.src=p.portada;img.alt=p.titulo;img.loading="lazy";img.onerror=()=>img.remove();card.append(img)}
+  const h=document.createElement("h3");h.textContent=p.titulo;
+  const info=document.createElement("p");info.textContent=`${p.tipo} · ${p.anio} · ${p.generos.join(", ")}`;
+  const desc=document.createElement("p");desc.textContent=p.descripcion;
+  const actions=document.createElement("div");actions.className="actions";
+  const edit=document.createElement("button");edit.textContent="✏️ Editar";edit.onclick=()=>editMovie(p.id);
+  const del=document.createElement("button");del.textContent="Eliminar";del.className="danger";del.onclick=()=>deleteMovie(p.id);
+  actions.append(edit,del);card.append(h,info,desc,actions);list.append(card);
+ });
+}
+function editMovie(id){
+ const p=peliculas.find(x=>x.id===id);if(!p)return;
+ $("movieId").value=p.id;$("title").value=p.titulo;$("type").value=p.tipo.toLowerCase().includes("serie")?"Serie":"Película";
+ $("year").value=p.anio;$("poster").value=p.portada;$("description").value=p.descripcion;
+ renderGenres(p.generos);$("saveMovie").textContent="Guardar cambios";$("moviesPanel").scrollIntoView({behavior:"smooth"});
+}
+function clearMovie(){
+ $("movieForm").reset();$("movieId").value="";renderGenres();$("saveMovie").textContent="💾 Guardar contenido";clearStatus("movieStatus");
+}
+async function saveMovie(e){
+ e.preventDefault();
+ const id=$("movieId").value||makeId(),generos=selectedGenres();
+ if(!generos.length){status("movieStatus","Selecciona al menos un género.");return}
+ const data={id,titulo:$("title").value.trim(),tipo:$("type").value,anio:Number($("year").value),genero:generos[0],generos,portada:normalizeGitHub($("poster").value),descripcion:$("description").value.trim()};
+ if(!data.titulo||!data.anio){status("movieStatus","Completa el título y el año.");return}
+ if(data.portada.startsWith("data:")||data.portada.startsWith("file:")){status("movieStatus","Utiliza un enlace público para la portada.");return}
+ try{
+  await setDoc(doc(db,"peliculas",id),data);
+  await loadData();clearMovie();status("movieStatus","Contenido guardado correctamente en Firebase.");
+ }catch(error){console.error(error);status("movieStatus","No se pudo guardar. Comprueba los permisos de Firebase.");}
+}
+async function deleteMovie(id){
+ if(!confirm("¿Deseas eliminar este título de Firebase?"))return;
+ try{
+  await deleteDoc(doc(db,"peliculas",id));await loadData();status("movieStatus","Contenido eliminado.");
+ }catch(e){console.error(e);status("movieStatus","No se pudo eliminar el contenido.");}
+}
+function renderSagaMovieList(selected=[]){
+ const q=$("sagaSearch").value.trim().toLowerCase(),list=$("sagaMovieList");
+ const previous=[...list.querySelectorAll("input:checked")].map(x=>x.value);
+ const ids=selected.length?selected:previous;
+ list.replaceChildren();
+ const results=peliculas.filter(p=>p.tipo.toLowerCase().includes("pel")&&p.titulo.toLowerCase().includes(q));
+ if(!results.length){list.textContent="No se encontraron películas.";return}
+ results.forEach(p=>{
+  const label=document.createElement("label");label.className="movie-option";
+  const input=document.createElement("input");input.type="checkbox";input.value=p.id;input.checked=ids.includes(p.id);
+  const span=document.createElement("span");span.textContent=`${p.titulo} (${p.anio})`;
+  label.append(input,span);list.append(label);
+ });
+}
+function selectedSagaMovies(){return [...$("sagaMovieList").querySelectorAll("input:checked")].map(x=>x.value)}
+function renderSagaList(){
+ const q=$("sagaAdminSearch").value.trim().toLowerCase(),list=$("sagaAdminList");list.replaceChildren();
+ const results=sagas.filter(s=>String(s.titulo||"").toLowerCase().includes(q));
+ $("sagaCount").textContent=`${results.length} sagas`;
+ if(!results.length){list.textContent="Todavía no hay sagas registradas.";return}
+ results.forEach(s=>{
+  const card=document.createElement("article");card.className="item";
+  if(s.portada){const img=document.createElement("img");img.src=s.portada;img.alt=s.titulo;img.onerror=()=>img.remove();card.append(img)}
+  const h=document.createElement("h3");h.textContent=s.titulo;
+  const p=document.createElement("p");p.textContent=`${(s.peliculasIds||[]).length} películas · ${s.descripcion||""}`;
+  const actions=document.createElement("div");actions.className="actions";
+  const edit=document.createElement("button");edit.textContent="✏️ Editar";edit.onclick=()=>editSaga(s.id);
+  const del=document.createElement("button");del.textContent="Eliminar";del.className="danger";del.onclick=()=>deleteSaga(s.id);
+  actions.append(edit,del);card.append(h,p,actions);list.append(card);
+ });
+}
+function editSaga(id){
+ const s=sagas.find(x=>x.id===id);if(!s)return;
+ $("sagaId").value=s.id;$("sagaTitle").value=s.titulo;$("sagaPoster").value=s.portada||"";
+ showPosterPreview("sagaPoster","sagaPosterPreview");
+ $("sagaDescription").value=s.descripcion||"";$("sagaSearch").value="";
+ renderSagaMovieList(s.peliculasIds||[]);$("saveSaga").textContent="Guardar cambios";
+ $("sagasPanel").scrollIntoView({behavior:"smooth"});
+}
+function clearSaga(){
+ $("sagaForm").reset();$("sagaId").value="";$("saveSaga").textContent="💾 Guardar saga";
+ $("sagaPosterPreview").removeAttribute("src");$("sagaPosterPreview").classList.add("hidden");
+ renderSagaMovieList();clearStatus("sagaStatus");
+}
+async function saveSaga(e){
+ e.preventDefault();
+ const id=$("sagaId").value||makeId(),peliculasIds=selectedSagaMovies();
+ const titulo=$("sagaTitle").value.trim(),portada=normalizeGitHub($("sagaPoster").value);
+ if(!titulo){status("sagaStatus","Escribe el nombre de la saga.");return}
+ if(!peliculasIds.length){status("sagaStatus","Selecciona al menos una película.");return}
+ if(portada.startsWith("data:")||portada.startsWith("file:")){status("sagaStatus","Utiliza un enlace público para la portada.");return}
+ const peliculasTitulos=peliculasIds.map(id=>peliculas.find(p=>p.id===id)?.titulo||"Película");
+ const data={id,titulo,portada,descripcion:$("sagaDescription").value.trim(),peliculasIds,peliculasTitulos,actualizadoEn:new Date().toISOString()};
+ try{
+  await setDoc(doc(db,"sagas",id),data);await loadData();clearSaga();
+  status("sagaStatus","Saga guardada correctamente en Firebase.");
+ }catch(error){console.error(error);status("sagaStatus","No se pudo guardar la saga. Comprueba las reglas de Firestore.");}
+}
+async function deleteSaga(id){
+ if(!confirm("¿Eliminar esta saga? Las películas individuales no se eliminarán."))return;
+ try{await deleteDoc(doc(db,"sagas",id));await loadData();status("sagaStatus","Saga eliminada correctamente.");}
+ catch(e){console.error(e);status("sagaStatus","No se pudo eliminar la saga.");}
+}
+async function loadData(){
+ // Cargar primero el catálogo principal: un problema con "sagas" no debe ocultar las películas.
+ const movieDocs=await getDocs(movieCollection);
+ peliculas=movieDocs.docs.map(d=>normalizeMovie(d.data(),d.id));
+ renderMovieList();renderSagaMovieList();
 
+ try{
+  const sagaDocs=await getDocs(sagaCollection);
+  sagas=sagaDocs.docs.map(d=>({id:d.id,...d.data(),peliculasIds:Array.isArray(d.data().peliculasIds)?d.data().peliculasIds:[]}));
+  renderSagaList();
+  clearStatus("sagaStatus");
+ }catch(error){
+  console.error("No se pudieron leer las sagas:",error);
+  sagas=[];
+  renderSagaList();
+  status("sagaStatus","No se pudieron cargar las sagas. El catálogo de películas y series sí se cargó. Revisa los permisos de la colección sagas.");
+ }
+}
+function switchTab(id){
+ document.querySelectorAll(".admin-section").forEach(s=>s.classList.toggle("hidden",s.id!==id));
+ document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+}
+$("loginForm").addEventListener("submit",async e=>{
+ e.preventDefault();$("loginMessage").textContent="Verificando acceso...";
+ try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);$("password").value=""}
+ catch(error){console.error(error);$("loginMessage").textContent="No se pudo iniciar sesión. Revisa tus datos."}
 });
-
-onAuthStateChanged(auth, async (usuario) => {
-
-  if (!usuario) {
-
-    panelLogin.style.display = "block";
-
-    seccionesAdmin.forEach(seccion => {
-      seccion.style.display = "none";
-    });
-
-    return;
-  }
-
-  const UID_ADMIN = "9EXr47QXq2SEBTnXImSjcAKzkZq1";
-
-  if (usuario.uid === UID_ADMIN) {
-
-    panelLogin.style.display = "none";
-
-    seccionesAdmin.forEach(seccion => {
-      seccion.style.display = "block";
-    });
-
-  } else {
-
-    panelLogin.style.display = "block";
-
-    mensajeLogin.textContent =
-      "Esta cuenta no tiene permisos de administrador.";
-
-    await signOut(auth);
-
-  }
-
+$("logoutButton").addEventListener("click",()=>signOut(auth));
+$("movieForm").addEventListener("submit",saveMovie);
+$("sagaForm").addEventListener("submit",saveSaga);
+$("clearMovie").addEventListener("click",clearMovie);
+$("clearSaga").addEventListener("click",clearSaga);
+$("movieSearch").addEventListener("input",renderMovieList);
+$("sagaAdminSearch").addEventListener("input",renderSagaList);
+$("sagaSearch").addEventListener("input",()=>renderSagaMovieList());
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
+$("poster").addEventListener("blur",()=>{$("poster").value=normalizeGitHub($("poster").value)});
+$("sagaPoster").addEventListener("blur",()=>{
+ $("sagaPoster").value=normalizeGitHub($("sagaPoster").value);
+ showPosterPreview("sagaPoster","sagaPosterPreview");
 });
+$("sagaPoster").addEventListener("input",()=>showPosterPreview("sagaPoster","sagaPosterPreview"));
+renderGenres();
 
+onAuthStateChanged(auth,async user=>{
+ if(!user){
+  $("loginPanel").classList.remove("hidden");$("adminPanel").classList.add("hidden");return;
+ }
+ if(user.uid!==UID_ADMIN){
+  $("loginMessage").textContent="Esta cuenta no tiene permisos de administrador.";
+  await signOut(auth);return;
+ }
+ $("loginPanel").classList.add("hidden");$("adminPanel").classList.remove("hidden");
+ try{await loadData()}catch(error){console.error(error);alert("No se pudo leer Firebase. Comprueba las reglas de Firestore y la conexión.")}
+});
 </script>
-
 </body>
 </html>
-```

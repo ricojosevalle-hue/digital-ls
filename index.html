@@ -5,1006 +5,300 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080b12">
-<title>Digital L&S | Películas y series</title>
-
+<title>Digital L&S | Entretenimiento</title>
 <style>
-:root {
-    --blue: #1687ff;
-    --cyan: #54dfff;
-    --bg: #080b12;
-    --panel: #101725;
-    --panel2: #151f30;
-    --text: #f4f7ff;
-    --muted: #9ba9bd;
-    --border: rgba(255,255,255,.09);
+:root{--blue:#1687ff;--cyan:#54dfff;--bg:#080b12;--panel:#101725;--panel2:#151f30;--text:#f4f7ff;--muted:#9ba9bd;--border:rgba(255,255,255,.09)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+nav{height:76px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:rgba(8,11,18,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(14px)}
+.logo-area{display:flex;align-items:center;gap:12px}.logo{width:49px;height:49px;object-fit:contain;border-radius:50%}.logo-text{font-size:21px;font-weight:900;letter-spacing:1px}.logo-text span{color:var(--blue)}
+.nav-links{display:flex;gap:25px;align-items:center}.nav-links a{color:#c5d0df;font-size:14px}.nav-links a:hover{color:var(--cyan)}
+.whatsapp-btn{background:#0eaa67;color:white;border:0;border-radius:30px;padding:12px 19px;font-weight:bold}
+.menu-btn{display:none;color:white;background:transparent;border:0;font-size:27px}
+.hero{min-height:450px;padding:75px 7%;display:flex;align-items:center;background:linear-gradient(90deg,rgba(5,9,18,.98),rgba(5,9,18,.76),rgba(5,9,18,.35)),linear-gradient(0deg,var(--bg),transparent 35%),url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1800&q=85") center/cover}
+.hero-content{max-width:680px}.hero-tag{color:var(--cyan);font-size:12px;font-weight:bold;letter-spacing:3px;margin-bottom:18px}
+.hero h1{font-size:clamp(38px,6vw,66px);line-height:1.05;margin-bottom:20px}.hero h1 span{color:var(--blue);text-shadow:0 0 25px #1687ff66}
+.hero p{color:#c3cede;line-height:1.7;font-size:16px;max-width:540px;margin-bottom:28px}
+.primary-btn{border:0;background:linear-gradient(100deg,var(--blue),#0757c5);color:white;padding:15px 25px;border-radius:8px;font-weight:bold;box-shadow:0 7px 25px #1687ff40}
+.search-panel{width:min(900px,88%);margin:-35px auto 48px;padding:18px;position:relative;z-index:5;background:var(--panel);border:1px solid var(--border);border-radius:14px;display:flex;gap:12px;box-shadow:0 15px 45px #0005}
+.search-panel input{flex:1;min-width:0;background:#080e19;color:white;border:1px solid var(--border);border-radius:8px;padding:15px;outline:none}
+.search-panel input:focus{border-color:var(--blue)}.search-panel button{background:var(--blue);border:0;color:white;padding:0 24px;border-radius:8px;font-weight:bold}
+.section{padding:0 6%;margin-bottom:48px;scroll-margin-top:100px}
+.section-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:15px}
+.section-heading h2{font-size:22px;border-left:4px solid var(--blue);padding-left:13px}
+.section-heading p{color:var(--muted);font-size:13px}
+.movie-row{display:grid;grid-auto-flow:column;grid-auto-columns:190px;gap:17px;overflow-x:auto;padding:4px 2px 18px;scrollbar-width:thin;scrollbar-color:var(--blue) #111827;scroll-snap-type:x proximity}
+.movie-card{min-width:0;background:var(--panel);border:1px solid var(--border);border-radius:11px;overflow:hidden;cursor:pointer;transition:.25s;scroll-snap-align:start}
+.movie-card:hover{transform:translateY(-5px);border-color:var(--blue);box-shadow:0 10px 25px #0006}
+.poster{width:100%;height:265px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#17263c,#0b111d);overflow:hidden}
+.poster img{width:100%;height:100%;object-fit:cover}.poster-placeholder{font-size:45px;color:var(--cyan)}
+.movie-info{padding:13px}.movie-info h3{font-size:14px;line-height:1.4;margin-bottom:8px;min-height:38px}
+.movie-meta{color:var(--muted);font-size:12px;line-height:1.6}
+.movie-type{display:inline-block;color:var(--cyan);background:#1687ff1f;border:1px solid #1687ff44;border-radius:20px;padding:4px 9px;font-size:10px;margin-top:9px}
+.promo{margin:0 6% 50px;padding:32px;border-radius:15px;background:linear-gradient(100deg,#050d1bf5,#081e3cbb),url("https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1400&q=80") center/cover;border:1px solid #54dfff33}
+.promo h2{font-size:25px;margin-bottom:12px}.promo p{color:#c3cede;line-height:1.6;margin-bottom:20px}
+.filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px}
+.filter-btn{color:#c3cede;background:var(--panel);border:1px solid var(--border);border-radius:25px;padding:9px 15px;font-size:12px;transition:.2s}
+.filter-btn:hover,.filter-btn.active{color:white;background:var(--blue);border-color:var(--blue)}
+.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:20px}
+.status-message{color:var(--muted);background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:25px;text-align:center;line-height:1.6;grid-column:1/-1}
+.category-section{margin-bottom:43px}.category-link{color:var(--cyan);font-size:12px;font-weight:bold}
+.saga-row{display:grid;grid-auto-flow:column;grid-auto-columns:240px;gap:18px;overflow-x:auto;padding:4px 2px 18px;scrollbar-width:thin;scrollbar-color:var(--blue) #111827}
+.saga-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:.25s}
+.saga-card:hover{transform:translateY(-5px);border-color:var(--blue)}
+.saga-poster{height:160px;background:#111b2a}.saga-poster img{width:100%;height:100%;object-fit:cover}
+.saga-info{padding:14px}.saga-info h3{font-size:15px;margin-bottom:7px}.saga-info p{font-size:12px;color:var(--muted);line-height:1.5}
+.saga-count{display:inline-block;color:var(--cyan);font-size:11px;margin-top:9px}
+footer{background:#060910;border-top:1px solid var(--border);padding:35px 6%;text-align:center;color:var(--muted);line-height:1.8;font-size:13px}
+footer strong{color:var(--cyan)}
+.floating-whatsapp{position:fixed;right:22px;bottom:22px;width:56px;height:56px;border-radius:50%;background:#0eaa67;color:white;display:flex;align-items:center;justify-content:center;font-size:27px;box-shadow:0 5px 20px #0006;z-index:90;border:0}
+.modal{display:none;position:fixed;inset:0;background:#000d;z-index:200;padding:20px;align-items:center;justify-content:center;overflow-y:auto}
+.modal.open{display:flex}.modal-content{width:min(780px,100%);max-height:92vh;overflow-y:auto;background:#101725;border:1px solid #54dfff33;border-radius:15px;position:relative;box-shadow:0 20px 70px #0009}
+.modal-cover{height:300px;background:#101b2c;position:relative}.modal-cover img{width:100%;height:100%;object-fit:cover}
+.modal-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#101725,transparent 65%)}
+.modal-body{padding:25px}.modal-body h2{font-size:27px;margin-bottom:12px}.modal-body p{color:#c0ccdc;line-height:1.7;margin:14px 0 22px;white-space:pre-wrap}
+.modal-close{position:absolute;top:12px;right:12px;z-index:5;width:38px;height:38px;border:0;border-radius:50%;color:white;background:#000a;font-size:23px}
+.modal-actions{display:flex;gap:12px;flex-wrap:wrap}.saga-films{display:grid;gap:9px;margin:18px 0}.saga-film{display:flex;align-items:center;gap:12px;background:#151f30;padding:10px;border-radius:9px}.saga-film button{margin-left:auto;background:var(--blue);border:0;border-radius:7px;padding:8px;color:white;font-size:11px}
+@media(max-width:700px){
+nav{padding:0 5%;height:68px}.logo{width:42px;height:42px}.logo-text{font-size:18px}.menu-btn{display:block}
+.nav-links{display:none;position:absolute;top:68px;left:0;right:0;padding:20px;background:#0b111d;border-bottom:1px solid var(--border);flex-direction:column;align-items:stretch;gap:20px}
+.nav-links.show{display:flex}.nav-links .whatsapp-btn{width:100%}
+.hero{min-height:380px;padding:55px 6%}.hero p{font-size:14px}
+.search-panel{width:90%;padding:12px}.search-panel input{padding:13px 10px}.search-panel button{padding:0 14px}
+.section{padding:0 5%;margin-bottom:38px}.section-heading h2{font-size:19px}.section-heading p{display:none}
+.movie-row{grid-auto-columns:155px;gap:13px}.poster{height:215px}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.catalog-grid .poster{height:220px}.saga-row{grid-auto-columns:210px}
+.promo{margin:0 5% 40px;padding:24px 20px}.promo h2{font-size:21px}.modal-cover{height:220px}.modal-body{padding:20px}
 }
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
-    overflow-x: hidden;
-}
-
-button, input { font: inherit; }
-
-button { cursor: pointer; }
-
-a { color: inherit; text-decoration: none; }
-
-nav {
-    height: 76px;
-    padding: 0 6%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(8,11,18,.94);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(14px);
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo {
-    width: 49px;
-    height: 49px;
-    object-fit: contain;
-    border-radius: 50%;
-}
-
-.logo-text {
-    font-size: 21px;
-    font-weight: 900;
-    letter-spacing: 1px;
-}
-
-.logo-text span { color: var(--blue); }
-
-.nav-links {
-    display: flex;
-    gap: 28px;
-    align-items: center;
-}
-
-.nav-links a {
-    color: #c5d0df;
-    font-size: 14px;
-    transition: .2s;
-}
-
-.nav-links a:hover { color: var(--cyan); }
-
-.whatsapp-btn {
-    background: #0eaa67;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 12px 19px;
-    font-weight: bold;
-    transition: .2s;
-}
-
-.whatsapp-btn:hover { background: #12c77b; }
-
-.menu-btn {
-    display: none;
-    color: white;
-    background: transparent;
-    border: 0;
-    font-size: 27px;
-}
-
-.hero {
-    min-height: 470px;
-    padding: 75px 7%;
-    display: flex;
-    align-items: center;
-    background:
-        linear-gradient(90deg, rgba(5,9,18,.98), rgba(5,9,18,.76), rgba(5,9,18,.35)),
-        linear-gradient(0deg, var(--bg), transparent 35%),
-        url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1800&q=85");
-    background-position: center;
-    background-size: cover;
-}
-
-.hero-content { max-width: 680px; }
-
-.hero-tag {
-    color: var(--cyan);
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    margin-bottom: 18px;
-}
-
-.hero h1 {
-    font-size: clamp(38px, 6vw, 66px);
-    line-height: 1.05;
-    margin-bottom: 20px;
-}
-
-.hero h1 span {
-    color: var(--blue);
-    text-shadow: 0 0 25px rgba(22,135,255,.4);
-}
-
-.hero p {
-    color: #c3cede;
-    line-height: 1.7;
-    font-size: 16px;
-    max-width: 540px;
-    margin-bottom: 28px;
-}
-
-.primary-btn {
-    border: 0;
-    background: linear-gradient(100deg, var(--blue), #0757c5);
-    color: white;
-    padding: 15px 25px;
-    border-radius: 8px;
-    font-weight: bold;
-    box-shadow: 0 7px 25px rgba(22,135,255,.25);
-}
-
-.primary-btn:hover { filter: brightness(1.15); }
-
-.search-panel {
-    width: min(900px, 88%);
-    margin: -35px auto 48px;
-    padding: 18px;
-    position: relative;
-    z-index: 5;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    display: flex;
-    gap: 12px;
-    box-shadow: 0 15px 45px rgba(0,0,0,.3);
-}
-
-.search-panel input {
-    flex: 1;
-    min-width: 0;
-    background: #080e19;
-    color: white;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 15px;
-    outline: none;
-}
-
-.search-panel input:focus { border-color: var(--blue); }
-
-.search-panel button {
-    background: var(--blue);
-    border: 0;
-    color: white;
-    padding: 0 24px;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-.section {
-    padding: 0 6%;
-    margin-bottom: 55px;
-    scroll-margin-top: 100px;
-}
-
-.section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-    gap: 15px;
-}
-
-.section-heading h2 {
-    font-size: 23px;
-    border-left: 4px solid var(--blue);
-    padding-left: 13px;
-}
-
-.section-heading p {
-    color: var(--muted);
-    font-size: 13px;
-}
-
-.movie-row {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 190px;
-    gap: 17px;
-    overflow-x: auto;
-    padding: 4px 2px 18px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--blue) #111827;
-}
-
-.movie-card {
-    min-width: 0;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform .25s, border-color .25s, box-shadow .25s;
-}
-
-.movie-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--blue);
-    box-shadow: 0 10px 25px rgba(0,0,0,.35);
-}
-
-.poster {
-    width: 100%;
-    height: 265px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(145deg, #17263c, #0b111d);
-    overflow: hidden;
-    position: relative;
-}
-
-.poster img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.poster-placeholder {
-    font-size: 45px;
-    color: var(--cyan);
-}
-
-.movie-info { padding: 13px; }
-
-.movie-info h3 {
-    font-size: 14px;
-    line-height: 1.4;
-    margin-bottom: 8px;
-    min-height: 38px;
-}
-
-.movie-meta {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.6;
-}
-
-.movie-type {
-    display: inline-block;
-    color: var(--cyan);
-    background: rgba(22,135,255,.12);
-    border: 1px solid rgba(22,135,255,.2);
-    border-radius: 20px;
-    padding: 4px 9px;
-    font-size: 10px;
-    margin-top: 9px;
-}
-
-.promo {
-    margin: 0 6% 55px;
-    padding: 35px;
-    border-radius: 15px;
-    background:
-        linear-gradient(100deg, rgba(5,13,27,.96), rgba(8,30,60,.75)),
-        url("https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1400&q=80");
-    background-size: cover;
-    background-position: center;
-    border: 1px solid rgba(84,223,255,.2);
-}
-
-.promo h2 {
-    font-size: 27px;
-    margin-bottom: 12px;
-}
-
-.promo p {
-    color: #c3cede;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 9px;
-    margin-bottom: 25px;
-}
-
-.filter-btn {
-    color: #c3cede;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 25px;
-    padding: 9px 16px;
-    font-size: 12px;
-    transition: .2s;
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-    color: white;
-    background: var(--blue);
-    border-color: var(--blue);
-}
-
-.catalog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
-    gap: 20px;
-}
-
-.status-message {
-    color: var(--muted);
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 25px;
-    text-align: center;
-    line-height: 1.6;
-    grid-column: 1 / -1;
-}
-
-.status-message.error { color: #ffb4b4; }
-
-footer {
-    background: #060910;
-    border-top: 1px solid var(--border);
-    padding: 35px 6%;
-    text-align: center;
-    color: var(--muted);
-    line-height: 1.8;
-    font-size: 13px;
-}
-
-footer strong { color: var(--cyan); }
-
-.floating-whatsapp {
-    position: fixed;
-    right: 22px;
-    bottom: 22px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: #0eaa67;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 27px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.4);
-    z-index: 90;
-    border: 0;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.86);
-    z-index: 200;
-    padding: 20px;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
-}
-
-.modal.open { display: flex; }
-
-.modal-content {
-    width: min(780px, 100%);
-    background: #101725;
-    border: 1px solid rgba(84,223,255,.2);
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 20px 70px rgba(0,0,0,.6);
-}
-
-.modal-cover {
-    height: 310px;
-    background: #101b2c;
-    position: relative;
-}
-
-.modal-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.modal-cover::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(0deg, #101725, transparent 65%);
-}
-
-.modal-body { padding: 25px; }
-
-.modal-body h2 {
-    font-size: 27px;
-    margin-bottom: 12px;
-}
-
-.modal-body p {
-    color: #c0ccdc;
-    line-height: 1.7;
-    margin: 14px 0 22px;
-    white-space: pre-wrap;
-}
-
-.modal-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 5;
-    width: 38px;
-    height: 38px;
-    border: 0;
-    border-radius: 50%;
-    color: white;
-    background: rgba(0,0,0,.65);
-    font-size: 23px;
-}
-
-.modal-actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-@media (max-width: 700px) {
-    nav { padding: 0 5%; height: 68px; }
-    .logo { width: 42px; height: 42px; }
-    .logo-text { font-size: 18px; }
-    .menu-btn { display: block; }
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 68px;
-        left: 0;
-        right: 0;
-        padding: 20px;
-        background: #0b111d;
-        border-bottom: 1px solid var(--border);
-        flex-direction: column;
-        align-items: stretch;
-        gap: 20px;
-    }
-    .nav-links.show { display: flex; }
-    .nav-links .whatsapp-btn { width: 100%; }
-    .hero { min-height: 390px; padding: 55px 6%; }
-    .hero p { font-size: 14px; }
-    .search-panel { width: 90%; padding: 12px; }
-    .search-panel input { padding: 13px 10px; }
-    .search-panel button { padding: 0 14px; }
-    .section { padding: 0 5%; margin-bottom: 42px; }
-    .section-heading h2 { font-size: 19px; }
-    .section-heading p { display: none; }
-    .movie-row { grid-auto-columns: 155px; gap: 13px; }
-    .poster { height: 215px; }
-    .catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
-    .catalog-grid .poster { height: 220px; }
-    .promo { margin: 0 5% 42px; padding: 25px 20px; }
-    .promo h2 { font-size: 22px; }
-    .modal-cover { height: 230px; }
-    .modal-body { padding: 20px; }
-}
-
-@media (max-width: 360px) {
-    .catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .catalog-grid .poster { height: 185px; }
-    .movie-info { padding: 10px; }
-}
+@media(max-width:360px){.catalog-grid .poster{height:185px}.movie-info{padding:10px}}
 </style>
 </head>
-
 <body>
-
 <nav>
-    <a class="logo-area" href="#">
-        <img class="logo" src="logo.jpg" alt="Digital L&S">
-        <div class="logo-text">DIGITAL <span>L&S</span></div>
-    </a>
-
-    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
-
-    <div class="nav-links" id="navLinks">
-        <a href="#inicio">Inicio</a>
-        <a href="#peliculas">Películas</a>
-        <a href="#series">Series</a>
-        <a href="#catalogo">Catálogo</a>
-        <button class="whatsapp-btn" id="navWhatsapp">Contactar</button>
-    </div>
-</nav>
-
-<header class="hero" id="inicio">
-    <div class="hero-content">
-        <div class="hero-tag">TU ESPACIO DE ENTRETENIMIENTO</div>
-        <h1>VIVE EL CINE<br>CON <span>DIGITAL L&S</span></h1>
-        <p>
-            Explora nuestro catálogo de películas y series.
-            Encuentra tus títulos favoritos y contáctanos para
-            solicitar información.
-        </p>
-        <button class="primary-btn" id="exploreBtn">EXPLORAR CATÁLOGO</button>
-    </div>
-</header>
-
-<div class="search-panel">
-    <input
-        type="search"
-        id="searchInput"
-        placeholder="Buscar películas, series o géneros..."
-        autocomplete="off"
-    >
-    <button id="searchBtn">BUSCAR</button>
+<a class="logo-area" href="#"><img class="logo" src="logo.jpg" alt="Digital L&S"><div class="logo-text">DIGITAL <span>L&S</span></div></a>
+<button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
+<div class="nav-links" id="navLinks">
+<a href="#inicio">Inicio</a><a href="#peliculas">Películas</a><a href="#series">Series</a><a href="#generos">Géneros</a><a href="#sagas">Sagas</a><a href="#catalogo">Catálogo</a>
+<button class="whatsapp-btn" id="navWhatsapp">Contactar</button>
 </div>
+</nav>
+<header class="hero" id="inicio"><div class="hero-content">
+<div class="hero-tag">TU ESPACIO DE ENTRETENIMIENTO</div>
+<h1>VIVE EL CINE<br>CON <span>DIGITAL L&S</span></h1>
+<p>Explora nuestro catálogo de películas, series y colecciones completas. Encuentra tus títulos favoritos y contáctanos para solicitar información.</p>
+<button class="primary-btn" id="exploreBtn">EXPLORAR CATÁLOGO</button>
+</div></header>
+<div class="search-panel"><input type="search" id="searchInput" placeholder="Buscar películas, series o géneros..." autocomplete="off"><button id="searchBtn">BUSCAR</button></div>
 
-<section class="section" id="peliculas">
-    <div class="section-heading">
-        <h2>PELÍCULAS DESTACADAS</h2>
-        <p>Descubre títulos de nuestro catálogo</p>
-    </div>
-    <div class="movie-row" id="featuredRow">
-        <div class="status-message">Cargando películas...</div>
-    </div>
-</section>
+<section class="section" id="peliculas"><div class="section-heading"><h2>PELÍCULAS DESTACADAS</h2><p>Descubre títulos de nuestro catálogo</p></div><div class="movie-row" id="featuredRow"><div class="status-message">Cargando...</div></div></section>
+<section class="section" id="series"><div class="section-heading"><h2>NUESTRAS SERIES</h2><p>Encuentra tus series favoritas</p></div><div class="movie-row" id="seriesRow"><div class="status-message">Cargando...</div></div></section>
 
-<section class="promo">
-    <h2>¿BUSCAS ALGÚN TÍTULO?</h2>
-    <p>
-        Si necesitas información sobre una película o serie,
-        puedes comunicarte directamente con nosotros.
-    </p>
-    <button class="whatsapp-btn" id="promoWhatsapp">CONTACTAR POR WHATSAPP</button>
-</section>
+<section class="section" id="sagas"><div class="section-heading"><h2>SAGAS COMPLETAS</h2><p>Colecciones reunidas en un solo lugar</p></div><div class="saga-row" id="sagaRow"><div class="status-message">Cargando sagas...</div></div></section>
 
-<section class="section" id="series">
-    <div class="section-heading">
-        <h2>NUESTRAS SERIES</h2>
-        <p>Encuentra tus series favoritas</p>
-    </div>
-    <div class="movie-row" id="seriesRow">
-        <div class="status-message">Cargando series...</div>
-    </div>
-</section>
+<section class="section" id="generos"><div class="section-heading"><h2>EXPLORA POR GÉNERO</h2><p>Encuentra lo que quieres ver</p></div><div id="genreSections"><div class="status-message">Cargando categorías...</div></div></section>
 
-<section class="section" id="catalogo">
-    <div class="section-heading">
-        <h2>CATÁLOGO COMPLETO</h2>
-        <p id="catalogCount">Consultando catálogo...</p>
-    </div>
+<section class="promo"><h2>¿BUSCAS ALGÚN TÍTULO?</h2><p>Si necesitas información sobre una película o serie, puedes comunicarte directamente con nosotros.</p><button class="whatsapp-btn" id="promoWhatsapp">CONTACTAR POR WHATSAPP</button></section>
 
-    <div class="filters" id="filters">
-        <button class="filter-btn active" data-filter="todos">Todos</button>
-        <button class="filter-btn" data-filter="pelicula">Películas</button>
-        <button class="filter-btn" data-filter="serie">Series</button>
-        <button class="filter-btn" data-filter="Acción">Acción</button>
-        <button class="filter-btn" data-filter="Terror">Terror</button>
-        <button class="filter-btn" data-filter="Misterio">Misterio</button>
-        <button class="filter-btn" data-filter="Suspenso">Suspenso</button>
-        <button class="filter-btn" data-filter="Ciencia ficción">Ciencia ficción</button>
-        <button class="filter-btn" data-filter="Aventura">Aventura</button>
-        <button class="filter-btn" data-filter="Drama">Drama</button>
-        <button class="filter-btn" data-filter="Romance">Romance</button>
-        <button class="filter-btn" data-filter="Comedia">Comedia</button>
-        <button class="filter-btn" data-filter="Familiar">Familiar</button>
-        <button class="filter-btn" data-filter="Cine de arte">Cine de arte</button>
-<button class="filter-btn" data-filter="Adultos (+18)">Adultos (+18)</button>
-    </div>
-
-    <div class="catalog-grid" id="catalogGrid">
-        <div class="status-message">Conectando con el catálogo...</div>
-    </div>
-</section>
-
-<footer>
-    <strong>DIGITAL L&S</strong><br>
-    Películas y series para disfrutar.<br>
-    © <span id="currentYear"></span> Digital L&S. Todos los derechos reservados.
-</footer>
-
+<section class="section" id="catalogo"><div class="section-heading"><h2>CATÁLOGO COMPLETO</h2><p id="catalogCount">Consultando catálogo...</p></div><div class="filters" id="filters"><button class="filter-btn active" data-filter="todos">Todos</button><button class="filter-btn" data-filter="pelicula">Películas</button><button class="filter-btn" data-filter="serie">Series</button><div id="genreFilters" style="display:contents"></div></div><div class="catalog-grid" id="catalogGrid"><div class="status-message">Conectando...</div></div></section>
+<footer><strong>DIGITAL L&S</strong><br>Películas y series para disfrutar.<br>© <span id="currentYear"></span> Digital L&S. Todos los derechos reservados.</footer>
 <button class="floating-whatsapp" id="floatingWhatsapp" aria-label="Contactar por WhatsApp">✆</button>
 
-<div class="modal" id="movieModal" aria-hidden="true">
-    <div class="modal-content">
-        <button class="modal-close" id="closeModal" aria-label="Cerrar">×</button>
-        <div class="modal-cover" id="modalCover"></div>
-        <div class="modal-body">
-            <h2 id="modalTitle"></h2>
-            <div class="movie-meta" id="modalMeta"></div>
-            <p id="modalDescription"></p>
-            <div class="modal-actions">
-                <button class="whatsapp-btn" id="modalWhatsapp">CONSULTAR POR WHATSAPP</button>
-                <button class="filter-btn" id="modalCloseSecondary">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="modal" id="movieModal" aria-hidden="true"><div class="modal-content">
+<button class="modal-close" id="closeModal" aria-label="Cerrar">×</button>
+<div class="modal-cover" id="modalCover"></div><div class="modal-body">
+<h2 id="modalTitle"></h2><div class="movie-meta" id="modalMeta"></div><p id="modalDescription"></p>
+<div class="modal-actions"><button class="whatsapp-btn" id="modalWhatsapp">CONSULTAR POR WHATSAPP</button><button class="filter-btn" id="modalCloseSecondary">Cerrar</button></div>
+</div></div></div>
+
+<div class="modal" id="sagaModal" aria-hidden="true"><div class="modal-content">
+<button class="modal-close" id="closeSagaModal">×</button><div class="modal-cover" id="sagaModalCover"></div>
+<div class="modal-body"><h2 id="sagaModalTitle"></h2><div class="movie-meta" id="sagaModalMeta"></div><p id="sagaModalDescription"></p><h3>Películas incluidas</h3><div class="saga-films" id="sagaFilms"></div><button class="whatsapp-btn" id="sagaWhatsapp">CONSULTAR ESTA SAGA</button></div>
+</div></div>
 
 <script type="module">
-import { db } from "./firebase-config.js";
-import {
-    collection,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+import {db} from "./firebase-config.js";
+import {collection,getDocs} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
 
-const WHATSAPP_NUMBER = "527294983148";
+const WHATSAPP_NUMBER="527294983148";
+const GENEROS_BASE=["Acción","Animación","Anime","Aventura","Bélico","Biografía","Ciencia ficción","Comedia","Crimen","Deportes","Documental","Drama","Fantasía","Familiar","Histórico","Infantil","Misterio","Musical","Policial","Romance","Sobrenatural","Suspenso","Thriller","Western","Cine de arte"];
+let peliculas=[],sagas=[],filtroActual="todos",busquedaActual="",seleccionActual=null;
 
-const featuredRow = document.getElementById("featuredRow");
-const seriesRow = document.getElementById("seriesRow");
-const catalogGrid = document.getElementById("catalogGrid");
-const catalogCount = document.getElementById("catalogCount");
-const searchInput = document.getElementById("searchInput");
-const filters = document.getElementById("filters");
+const $=id=>document.getElementById(id);
+$("currentYear").textContent=new Date().getFullYear();
 
-let peliculas = [];
-let filtroActual = "todos";
-let busquedaActual = "";
-let peliculaSeleccionada = null;
-
-document.getElementById("currentYear").textContent =
-    new Date().getFullYear();
-
-function contactar(titulo = "") {
-    const mensaje = titulo
-        ? `Hola, quisiera información sobre: ${titulo}`
-        : "Hola, quisiera información sobre el catálogo de Digital L&S.";
-
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+function contactar(titulo=""){
+ const mensaje=titulo?`Hola, quisiera información sobre: ${titulo}`:"Hola, quisiera información sobre el catálogo de Digital L&S.";
+ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`,"_blank","noopener,noreferrer");
 }
-
-function normalizarPelicula(data, id) {
-    const tipoOriginal = String(data.tipo || data.type || "pelicula")
-        .toLowerCase()
-        .trim();
-
-    const tipo = tipoOriginal.includes("serie") ? "serie" : "pelicula";
-
-    const generoOriginal = data.genero ?? data.genre ?? "";
-
-    const generos = Array.isArray(generoOriginal)
-        ? generoOriginal.map(g => String(g).trim()).filter(Boolean)
-        : String(generoOriginal)
-            .split(",")
-            .map(g => g.trim())
-            .filter(Boolean);
-
-    return {
-        id,
-        titulo: String(data.titulo ?? data.t ?? "Sin título"),
-        tipo,
-        anio: String(data.anio ?? data.year ?? ""),
-        generos,
-        descripcion: String(data.descripcion ?? data.desc ?? ""),
-        portada: String(data.portada ?? ""),
-        etiquetas: Array.isArray(data.etiquetas) ? data.etiquetas : []
-    };
+function normalizar(data,id){
+ const tipoOriginal=String(data.tipo||data.type||"pelicula").toLowerCase();
+ const generoOriginal=data.generos??data.genero??data.genre??[];
+ const generos=(Array.isArray(generoOriginal)?generoOriginal:String(generoOriginal).split(",")).map(x=>String(x).trim()).filter(Boolean);
+ const etiquetas=Array.isArray(data.etiquetas)?data.etiquetas:[];
+ return {id,titulo:String(data.titulo??data.t??"Sin título"),tipo:tipoOriginal.includes("serie")?"serie":"pelicula",anio:String(data.anio??data.year??""),generos,etiquetas,descripcion:String(data.descripcion??data.desc??""),portada:String(data.portada??"")};
 }
-
-function crearTarjeta(pelicula) {
-    const card = document.createElement("article");
-    card.className = "movie-card";
-
-    const poster = document.createElement("div");
-    poster.className = "poster";
-
-    if (pelicula.portada) {
-        const img = document.createElement("img");
-        img.src = pelicula.portada;
-        img.alt = pelicula.titulo;
-        img.loading = "lazy";
-        img.referrerPolicy = "no-referrer";
-
-        img.addEventListener("error", () => {
-            img.remove();
-            const placeholder = document.createElement("span");
-            placeholder.className = "poster-placeholder";
-            placeholder.textContent = "🎬";
-            poster.appendChild(placeholder);
-        });
-
-        poster.appendChild(img);
-    } else {
-        const placeholder = document.createElement("span");
-        placeholder.className = "poster-placeholder";
-        placeholder.textContent = "🎬";
-        poster.appendChild(placeholder);
-    }
-
-    const info = document.createElement("div");
-    info.className = "movie-info";
-
-    const title = document.createElement("h3");
-    title.textContent = pelicula.titulo;
-
-    const meta = document.createElement("div");
-    meta.className = "movie-meta";
-    meta.textContent = [
-        pelicula.anio,
-        pelicula.generos.join(" · ")
-    ].filter(Boolean).join(" • ") || "Más información disponible";
-
-    const type = document.createElement("span");
-    type.className = "movie-type";
-    type.textContent = pelicula.tipo === "serie" ? "SERIE" : "PELÍCULA";
-
-    info.append(title, meta, type);
-    card.append(poster, info);
-
-    card.addEventListener("click", () => abrirModal(pelicula));
-
-    return card;
+function imagen(contenedor,url,titulo){
+ contenedor.replaceChildren();
+ if(url){const img=document.createElement("img");img.src=url;img.alt=titulo||"";img.loading="lazy";img.referrerPolicy="no-referrer";img.onerror=()=>img.remove();contenedor.append(img)}
+ else{const span=document.createElement("span");span.className="poster-placeholder";span.textContent="🎬";contenedor.append(span)}
 }
-
-function mostrarMensaje(contenedor, mensaje, error = false) {
-    contenedor.replaceChildren();
-
-    const elemento = document.createElement("div");
-    elemento.className = "status-message" + (error ? " error" : "");
-    elemento.textContent = mensaje;
-
-    contenedor.appendChild(elemento);
+function tarjeta(p){
+ const card=document.createElement("article");card.className="movie-card";
+ const poster=document.createElement("div");poster.className="poster";imagen(poster,p.portada,p.titulo);
+ const info=document.createElement("div");info.className="movie-info";
+ const title=document.createElement("h3");title.textContent=p.titulo;
+ const meta=document.createElement("div");meta.className="movie-meta";meta.textContent=[p.anio,p.generos.join(" · ")].filter(Boolean).join(" • ");
+ const type=document.createElement("span");type.className="movie-type";type.textContent=p.tipo==="serie"?"SERIE":"PELÍCULA";
+ info.append(title,meta,type);card.append(poster,info);card.addEventListener("click",()=>abrirPelicula(p));return card;
 }
-
-function coincideConBusqueda(pelicula) {
-    if (!busquedaActual) return true;
-
-    const texto = [
-        pelicula.titulo,
-        pelicula.descripcion,
-        pelicula.anio,
-        pelicula.tipo,
-        ...pelicula.generos,
-        ...pelicula.etiquetas
-    ].join(" ").toLowerCase();
-
-    return texto.includes(busquedaActual);
+function mensaje(el,txt){el.replaceChildren();const d=document.createElement("div");d.className="status-message";d.textContent=txt;el.append(d)}
+function abrirPelicula(p){
+ seleccionActual=p;$("modalTitle").textContent=p.titulo;
+ $("modalMeta").textContent=[p.tipo==="serie"?"Serie":"Película",p.anio,p.generos.join(" · ")].filter(Boolean).join(" | ");
+ $("modalDescription").textContent=p.descripcion||"No hay descripción disponible.";
+ imagen($("modalCover"),p.portada,p.titulo);abrirModal("movieModal");
 }
-
-function coincideConFiltro(pelicula) {
-    if (filtroActual === "todos") return true;
-    if (filtroActual === "pelicula" || filtroActual === "serie") {
-        return pelicula.tipo === filtroActual;
-    }
-
-    return pelicula.generos.some(
-        genero => genero.toLowerCase() === filtroActual.toLowerCase()
-    );
+function abrirModal(id){$(id).classList.add("open");$(id).setAttribute("aria-hidden","false");document.body.style.overflow="hidden"}
+function cerrarModal(id){$(id).classList.remove("open");$(id).setAttribute("aria-hidden","true");if(!document.querySelector(".modal.open"))document.body.style.overflow=""}
+function abrirSaga(s){
+ imagen($("sagaModalCover"),s.portada,s.titulo);
+ $("sagaModalTitle").textContent=s.titulo;
+ $("sagaModalMeta").textContent=`${(s.peliculasIds||[]).length} películas`;
+ $("sagaModalDescription").textContent=s.descripcion||"Colección completa.";
+ const lista=$("sagaFilms");lista.replaceChildren();
+ (s.peliculasIds||[]).forEach((id,i)=>{
+  const p=peliculas.find(x=>x.id===id);
+  const fila=document.createElement("div");fila.className="saga-film";
+  const nombre=document.createElement("span");nombre.textContent=`${i+1}. ${p?.titulo||s.peliculasTitulos?.[i]||"Película"}`;
+  const btn=document.createElement("button");btn.textContent="Ver ficha";
+  if(p)btn.addEventListener("click",()=>{cerrarModal("sagaModal");abrirPelicula(p)});
+  else btn.disabled=true;
+  fila.append(nombre,btn);lista.append(fila);
+ });
+ abrirModal("sagaModal");
 }
-
-function obtenerFiltradas() {
-    return peliculas.filter(p =>
-        coincideConBusqueda(p) && coincideConFiltro(p)
-    );
+function tarjetaSaga(s){
+ const card=document.createElement("article");card.className="saga-card";
+ const poster=document.createElement("div");poster.className="saga-poster";imagen(poster,s.portada,s.titulo);
+ const info=document.createElement("div");info.className="saga-info";
+ const h=document.createElement("h3");h.textContent=s.titulo;
+ const desc=document.createElement("p");desc.textContent=s.descripcion||"Colección completa";
+ const count=document.createElement("span");count.className="saga-count";count.textContent=`${(s.peliculasIds||[]).length} películas`;
+ info.append(h,desc,count);card.append(poster,info);card.addEventListener("click",()=>abrirSaga(s));return card;
 }
-
-function renderizarCatalogo() {
-    const resultados = obtenerFiltradas();
-
-    catalogGrid.replaceChildren();
-    catalogCount.textContent =
-        `${resultados.length} ${resultados.length === 1 ? "resultado" : "resultados"}`;
-
-    if (resultados.length === 0) {
-        mostrarMensaje(
-            catalogGrid,
-            peliculas.length === 0
-                ? "Todavía no hay películas o series registradas en el catálogo."
-                : "No encontramos títulos con esa búsqueda o filtro."
-        );
-        return;
-    }
-
-    resultados.forEach(pelicula => {
-        catalogGrid.appendChild(crearTarjeta(pelicula));
-    });
+function coincidencia(p){
+ if(!busquedaActual)return true;
+ return [p.titulo,p.descripcion,p.anio,p.tipo,...p.generos,...p.etiquetas].join(" ").toLowerCase().includes(busquedaActual);
 }
-
-function renderizarFilas() {
-    featuredRow.replaceChildren();
-    seriesRow.replaceChildren();
-
-    const soloPeliculas = peliculas.filter(p => p.tipo === "pelicula");
-    const soloSeries = peliculas.filter(p => p.tipo === "serie");
-
-    if (soloPeliculas.length === 0) {
-        mostrarMensaje(featuredRow, "Todavía no hay películas registradas.");
-    } else {
-        soloPeliculas.slice(0, 10).forEach(p => {
-            featuredRow.appendChild(crearTarjeta(p));
-        });
-    }
-
-    if (soloSeries.length === 0) {
-        mostrarMensaje(seriesRow, "Todavía no hay series registradas.");
-    } else {
-        soloSeries.slice(0, 10).forEach(p => {
-            seriesRow.appendChild(crearTarjeta(p));
-        });
-    }
+function coincideFiltro(p){
+ if(filtroActual==="todos")return true;
+ if(["pelicula","serie"].includes(filtroActual))return p.tipo===filtroActual;
+ return p.generos.some(g=>g.toLocaleLowerCase()===filtroActual.toLocaleLowerCase())||p.etiquetas.some(g=>String(g).toLocaleLowerCase()===filtroActual.toLocaleLowerCase());
 }
-
-function abrirModal(pelicula) {
-    peliculaSeleccionada = pelicula;
-
-    document.getElementById("modalTitle").textContent = pelicula.titulo;
-
-    document.getElementById("modalMeta").textContent = [
-        pelicula.tipo === "serie" ? "Serie" : "Película",
-        pelicula.anio,
-        pelicula.generos.join(" · ")
-    ].filter(Boolean).join("  |  ");
-
-    document.getElementById("modalDescription").textContent =
-        pelicula.descripcion || "No hay descripción disponible.";
-
-    const cover = document.getElementById("modalCover");
-    cover.replaceChildren();
-
-    if (pelicula.portada) {
-        const img = document.createElement("img");
-        img.src = pelicula.portada;
-        img.alt = pelicula.titulo;
-        img.referrerPolicy = "no-referrer";
-
-        img.addEventListener("error", () => {
-            img.remove();
-        });
-
-        cover.appendChild(img);
-    }
-
-    const modal = document.getElementById("movieModal");
-    modal.classList.add("open");
-    modal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+function renderCatalogo(){
+ const resultados=peliculas.filter(p=>coincidencia(p)&&coincideFiltro(p));
+ $("catalogGrid").replaceChildren();
+ $("catalogCount").textContent=`${resultados.length} ${resultados.length===1?"resultado":"resultados"}`;
+ if(!resultados.length){mensaje($("catalogGrid"),"No encontramos títulos con esa búsqueda o filtro.");return}
+ resultados.forEach(p=>$("catalogGrid").append(tarjeta(p)));
 }
-
-function cerrarModal() {
-    const modal = document.getElementById("movieModal");
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-    peliculaSeleccionada = null;
+function aplicarFiltro(valor,boton){
+ filtroActual=valor;
+ document.querySelectorAll("#filters .filter-btn").forEach(b=>b.classList.toggle("active",b===boton));
+ renderCatalogo();$("catalogo").scrollIntoView({behavior:"smooth"});
 }
-
-async function cargarCatalogo() {
-    mostrarMensaje(featuredRow, "Cargando películas...");
-    mostrarMensaje(seriesRow, "Cargando series...");
-    mostrarMensaje(catalogGrid, "Consultando la base de datos...");
-
-    try {
-        const consulta = await getDocs(collection(db, "peliculas"));
-
-        peliculas = consulta.docs.map(documento =>
-            normalizarPelicula(documento.data(), documento.id)
-        );
-
-        renderizarFilas();
-        renderizarCatalogo();
-
-        console.info(
-            `Digital L&S: ${peliculas.length} títulos cargados desde Firebase.`
-        );
-
-    } catch (error) {
-        console.error("Error al cargar el catálogo de Firebase:", error);
-
-        mostrarMensaje(
-            featuredRow,
-            "No fue posible cargar las películas. Comprueba la conexión.",
-            true
-        );
-
-        mostrarMensaje(
-            seriesRow,
-            "No fue posible cargar las series. Comprueba la conexión.",
-            true
-        );
-
-        mostrarMensaje(
-            catalogGrid,
-            "No se pudo conectar con el catálogo. Intenta recargar la página.",
-            true
-        );
-
-        catalogCount.textContent = "Error de conexión";
-    }
+function renderFiltros(){
+ const cont=$("genreFilters");cont.replaceChildren();
+ const generos=new Set(GENEROS_BASE);
+ peliculas.forEach(p=>[...p.generos,...p.etiquetas].forEach(g=>{if(g&&String(g).length<45)generos.add(String(g).trim())}));
+ [...generos].sort((a,b)=>a.localeCompare(b,"es")).forEach(g=>{
+  const b=document.createElement("button");b.className="filter-btn";b.dataset.filter=g;b.textContent=g;cont.append(b);
+ });
 }
+function renderInicio(){
+ const movies=peliculas.filter(p=>p.tipo==="pelicula"),series=peliculas.filter(p=>p.tipo==="serie");
+ $("featuredRow").replaceChildren();$("seriesRow").replaceChildren();
+ if(!movies.length)mensaje($("featuredRow"),"Todavía no hay películas registradas.");
+ else movies.slice(0,12).forEach(p=>$("featuredRow").append(tarjeta(p)));
+ if(!series.length)mensaje($("seriesRow"),"Todavía no hay series registradas.");
+ else series.slice(0,12).forEach(p=>$("seriesRow").append(tarjeta(p)));
+}
+function renderSagas(){
+ const row=$("sagaRow");row.replaceChildren();
+ if(!sagas.length){mensaje(row,"Próximamente encontrarás aquí nuestras colecciones completas.");return}
+ sagas.forEach(s=>row.append(tarjetaSaga(s)));
+}
+function renderGeneros(){
+ const cont=$("genreSections");cont.replaceChildren();
+ const generos=new Set();
+ peliculas.forEach(p=>p.generos.forEach(g=>generos.add(g)));
+ const orden=[...GENEROS_BASE.filter(g=>generos.has(g)),...([...generos].filter(g=>!GENEROS_BASE.includes(g)).sort((a,b)=>a.localeCompare(b,"es")))];
+ if(!orden.length){mensaje(cont,"Todavía no hay géneros disponibles.");return}
+ orden.forEach(g=>{
+  const items=peliculas.filter(p=>p.generos.some(x=>x.toLowerCase()===g.toLowerCase()));
+  if(!items.length)return;
+  const section=document.createElement("section");section.className="category-section";
+  const head=document.createElement("div");head.className="section-heading";
+  const h=document.createElement("h2");h.textContent=g.toLocaleUpperCase("es");
+  const link=document.createElement("button");link.className="category-link";link.textContent="VER TODO →";link.addEventListener("click",()=>aplicarFiltro(g,document.querySelector(`#genreFilters [data-filter="${CSS.escape(g)}"]`)));
+  head.append(h,link);const row=document.createElement("div");row.className="movie-row";items.forEach(p=>row.append(tarjeta(p)));
+  section.append(head,row);cont.append(section);
+ });
+}
+async function cargarCatalogo(){
+ try{
+  const docs = await getDocs(collection(db,"peliculas"));
 
-// Búsqueda
-searchInput.addEventListener("input", () => {
-    busquedaActual = searchInput.value.trim().toLowerCase();
-    renderizarCatalogo();
-});
+  peliculas = docs.docs.map(d =>
+    normalizar(d.data(), d.id)
+  );
 
-document.getElementById("searchBtn").addEventListener("click", () => {
-    busquedaActual = searchInput.value.trim().toLowerCase();
-    renderizarCatalogo();
-    document.getElementById("catalogo").scrollIntoView();
-});
+  try {
+   const sagaDocs = await getDocs(collection(db,"sagas"));
 
-searchInput.addEventListener("keydown", event => {
-    if (event.key === "Enter") {
-        document.getElementById("searchBtn").click();
-    }
-});
+   sagas = sagaDocs.docs.map(d => ({
+    id:d.id,
+    ...d.data(),
+    peliculasIds:Array.isArray(d.data().peliculasIds)
+      ? d.data().peliculasIds
+      : []
+   }));
+  } catch(error) {
+   console.warn("Sagas todavía no disponibles:",error);
+   sagas = [];
+  }
 
-// Filtros
-filters.addEventListener("click", event => {
-    const boton = event.target.closest("[data-filter]");
-    if (!boton) return;
+  renderInicio();
+  renderFiltros();
+  renderCatalogo();
+  renderGeneros();
+  renderSagas();
 
-    filtroActual = boton.dataset.filter;
-
-    filters.querySelectorAll(".filter-btn").forEach(b => {
-        b.classList.toggle("active", b === boton);
-    });
-
-    renderizarCatalogo();
-});
-
-// Navegación
-document.getElementById("exploreBtn").addEventListener("click", () => {
-    document.getElementById("catalogo").scrollIntoView();
-});
-
-document.getElementById("menuBtn").addEventListener("click", () => {
-    document.getElementById("navLinks").classList.toggle("show");
-});
-
-document.querySelectorAll(".nav-links a").forEach(enlace => {
-    enlace.addEventListener("click", () => {
-        document.getElementById("navLinks").classList.remove("show");
-    });
-});
-
-// WhatsApp
-document.getElementById("navWhatsapp").addEventListener("click", () => contactar());
-document.getElementById("promoWhatsapp").addEventListener("click", () => contactar());
-document.getElementById("floatingWhatsapp").addEventListener("click", () => contactar());
-
-document.getElementById("modalWhatsapp").addEventListener("click", () => {
-    if (peliculaSeleccionada) contactar(peliculaSeleccionada.titulo);
-});
-
-// Modal
-document.getElementById("closeModal").addEventListener("click", cerrarModal);
-document.getElementById("modalCloseSecondary").addEventListener("click", cerrarModal);
-
-document.getElementById("movieModal").addEventListener("click", event => {
-    if (event.target.id === "movieModal") cerrarModal();
-});
-
-document.addEventListener("keydown", event => {
-    if (event.key === "Escape") cerrarModal();
-});
-
-// Iniciar
+ } catch(error) {
+  console.error("Error cargando películas:",error);
+  mensaje($("featuredRow"),"Error al cargar las películas.");
+  mensaje($("seriesRow"),"Error al cargar las series.");
+  mensaje($("genreSections"),"No se pudo conectar con el catálogo.");
+ }
+}
+$("searchInput").addEventListener("input",()=>{busquedaActual=$("searchInput").value.trim().toLowerCase();renderCatalogo()});
+$("searchBtn").addEventListener("click",()=>{busquedaActual=$("searchInput").value.trim().toLowerCase();renderCatalogo();$("catalogo").scrollIntoView({behavior:"smooth"})});
+$("searchInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("searchBtn").click()});
+$("filters").addEventListener("click",e=>{const b=e.target.closest("[data-filter]");if(b)aplicarFiltro(b.dataset.filter,b)});
+$("exploreBtn").addEventListener("click",()=>$("catalogo").scrollIntoView({behavior:"smooth"}));
+$("menuBtn").addEventListener("click",()=>$("navLinks").classList.toggle("show"));
+document.querySelectorAll(".nav-links a").forEach(a=>a.addEventListener("click",()=>$("navLinks").classList.remove("show")));
+["navWhatsapp","promoWhatsapp","floatingWhatsapp"].forEach(id=>$(id).addEventListener("click",()=>contactar()));
+$("modalWhatsapp").addEventListener("click",()=>{if(seleccionActual)contactar(seleccionActual.titulo)});
+$("sagaWhatsapp").addEventListener("click",()=>contactar($("sagaModalTitle").textContent));
+$("closeModal").addEventListener("click",()=>cerrarModal("movieModal"));
+$("modalCloseSecondary").addEventListener("click",()=>cerrarModal("movieModal"));
+$("closeSagaModal").addEventListener("click",()=>cerrarModal("sagaModal"));
+["movieModal","sagaModal"].forEach(id=>$(id).addEventListener("click",e=>{if(e.target.id===id)cerrarModal(id)}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){cerrarModal("movieModal");cerrarModal("sagaModal")}});
 cargarCatalogo();
 </script>
-
 </body>
 </html>
